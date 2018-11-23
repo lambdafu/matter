@@ -1,0 +1,20 @@
+{
+  "curie": {
+    "name": "Madam Curie",
+    "lemma": "Madam_Curie",
+    "image": "curie.jpg",
+    "title": "Physicist",
+    "tagline": "I am researching a new element, the radon.",
+    "tagline_lemma": "Radon",
+    "achievements": ["physics", "woman", "radon"]
+  },
+  "einstein": {
+    "name": "Albert Einstein",
+    "lemma": "Albert_Einstein",
+    "image": "einstein.jpg",
+    "title": "Physicist",
+    "tagline": "Everything is relative.",
+    "tagline_lemma": "Special_relativity",
+    "achievements": ["physics", "man", "light"]
+  }
+}
