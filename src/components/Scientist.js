@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Card, Label, Icon, Popup } from 'semantic-ui-react'
 
-import Wp from './wp';
+import Wp from './Wp';
 
 import achievements from '../data/achievements.json';
 import scientists from '../data/scientists.json';

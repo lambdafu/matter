@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react'
 
-import MatterMenu from './menu';
-import Notebook from './notebook';
-import Laboratory from './laboratory';
+import MatterMenu from './Menu';
+import Notebook from './Notebook';
+import Laboratory from './Laboratory';
 
 class Main extends Component {
   render() {
