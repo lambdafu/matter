@@ -7,7 +7,8 @@ export const sagaMiddleware = createSagaMiddleware();
 const initState = {
     version: 0,
     ui: {
-      scientist: "curie"
+      scientist: "curie",
+      messages: []
     }
 };
 

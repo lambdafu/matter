@@ -19,3 +19,14 @@ export function SET_SCIENTIST(value)
         }
     };
 }
+
+/* Push a notification. */
+export function PUSH_MESSAGE(value)
+{
+    return {
+        type: 'PUSH_MESSAGE',
+        payload: {
+            value: value
+        }
+    };
+}
