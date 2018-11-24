@@ -1,5 +1,4 @@
 import { call, put, select } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
 import { loadLocalState, saveLocalState } from '../store/localstorage'
 import { pushMessage } from './message'
 

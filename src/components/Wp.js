@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-// import { Icon } from 'semantic-ui-react';
+const wp_root = "https://en.wikipedia.org/wiki/";
 
 class Wp extends Component {
   render() {
       return (
-          <a target="_blank" rel="noopener noreferrer" href={ "https://en.wikipedia.org/wiki/" + this.props.lemma}>{this.props.children}</a>
-          // <Icon size='small' name="wikipedia w" />
+          <a target="_blank" rel="noopener noreferrer" href={ wp_root + this.props.lemma}>{this.props.children}</a>
         );
       }
     }

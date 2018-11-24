@@ -14,9 +14,9 @@
     "info": "Some equipment is cheaper.",
     "icon": "man"
   },
-  "radon": {
-    "name": "Radon",
-    "info": "Adds a huge bonus to radon experiments.",
+  "radium": {
+    "name": "Radium",
+    "info": "Adds a huge bonus to radium experiments.",
     "icon": "bomb"
   },
   "light": {

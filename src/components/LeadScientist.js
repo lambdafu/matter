@@ -7,9 +7,10 @@ import Scientist from './Scientist';
 
 import { SET_SCIENTIST } from '../store/actions';
 
-import scientists from '../data/scientists.json';
+import scientists from '../data/scientists';
+import ui from '../data/ui';
 
-const scientistOptions = Object.keys(scientists).map(name => ({
+const scientistOptions = ui.scientists.map(name => ({
    text: scientists[name].name,
    value: name
  }));
@@ -29,10 +30,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-
 class LeadScientist extends Component {
   render() {
-    console.log("X", this.props.lead);
          return (
            <div>
            <Dropdown fluid placeholder='Select Lead Scientist' selection options={scientistOptions}

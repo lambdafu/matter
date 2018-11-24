@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react'
+import { Grid, Container } from 'semantic-ui-react';
 
 import MatterMenu from './Menu';
 import Notebook from './Notebook';
@@ -10,16 +10,18 @@ class Main extends Component {
       return (
           <div>
               <MatterMenu />
+              <Container>
               <Grid padded>
               <Grid.Row>
-                  <Grid.Column width={6}>
+                  <Grid.Column mobile={16} tablet={16} computer={5}>
                   <Notebook />
                   </Grid.Column>
-                  <Grid.Column width={10}>
+                  <Grid.Column  mobile={16} tablet={16} computer={11}>
                   <Laboratory />
                   </Grid.Column>
              </Grid.Row>
              </Grid>
+             </Container>
           </div>
         );
       }

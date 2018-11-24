@@ -13,7 +13,7 @@ class Scientist extends Component {
   render() {
       const scientist = scientists[this.props.name];
       const extra = (
-        <span>
+        <Label.Group>
          {scientist.achievements.map(medal => (
           <Popup
              key={achievements[medal].name}
@@ -23,11 +23,12 @@ class Scientist extends Component {
              size='small'
            />
          ))}
-        </span>
+        </Label.Group>
       );
 
       return (
         <Card
+          style={{width: 'auto'}}
           image={pathToImg('./' + scientist.image)}
           header={<Wp lemma={scientist.lemma}>{scientist.name}</Wp>}
           meta={scientist.title}

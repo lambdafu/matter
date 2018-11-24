@@ -1,3 +1,14 @@
+/* Push a notification. */
+export function PUSH_MESSAGE(value)
+{
+    return {
+        type: 'PUSH_MESSAGE',
+        payload: {
+            value: value
+        }
+    };
+}
+
 /* Replace the current state entirely. */
 export function SET_STATE(value)
 {
@@ -20,11 +31,11 @@ export function SET_SCIENTIST(value)
     };
 }
 
-/* Push a notification. */
-export function PUSH_MESSAGE(value)
+/* Set the current lead scientist. */
+export function SET_TOPIC(value)
 {
     return {
-        type: 'PUSH_MESSAGE',
+        type: 'SET_TOPIC',
         payload: {
             value: value
         }

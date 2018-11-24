@@ -1,0 +1,278 @@
+{
+  "key": "sm",
+  "name": "Standard Model",
+  "short": "SM",
+  "wp": "Standard_Model",
+  "desc": "Four fundamental forces of nature, a bunch of particles, and their interactions.",
+  "gridui": {
+    "compact": true,
+    "celled": true,
+    "size": "large"
+  },
+  "grid": [
+    [
+      "up",
+      "charm",
+      "top",
+      "gluon",
+      "higgs"
+    ],
+    [
+      "down",
+      "strange",
+      "bottom",
+      "photon",
+      null
+    ],
+    [
+      "electron",
+      "muon",
+      "tau",
+      "zboson",
+      null
+    ],
+    [
+      "neutrino",
+      "mneutrino",
+      "tneutrino",
+      "wboson",
+      null
+    ]
+  ],
+  "gridtype": {
+    "quark": {
+      "key": "quark",
+      "name": "Quark",
+      "wp": "Quark",
+      "desc": "Elementary particles, combine to form hadrons.",
+      "color": "#f8f"
+    },
+    "lepton": {
+      "key": "lepton",
+      "name": "Lepton",
+      "wp": "Lepton",
+      "desc": "Elementary particle with half-integer spin.",
+      "color": "#8f8"
+    },
+    "gaugeboson": {
+      "key": "gaugeboson",
+      "name": "Gauge Boson",
+      "wp": "Gauge_boson",
+      "desc": "A force carrier.",
+      "color": "#f88"
+    },
+    "higgs": {
+      "key": "higgs",
+      "name": "Spin 0 Boson",
+      "wp": "https://www.quora.com/What-is-the-difference-between-the-Higgs-Boson-which-they-are-searching-for-at-CERN-and-the-gauge-bosons",
+      "desc": "Similar to a gauge boson, but with spin 0.",
+      "color": "#ff8"
+    }
+  },
+  "items": {
+    "up": {
+      "key": "up",
+      "gridtype": "quark",
+      "name": "Up Quark",
+      "short": "u",
+      "wp": "Up_quark",
+      "mass": "2.3 MeV/c2",
+      "charge": 0.6666666666666666,
+      "spin": 0.5,
+      "desc": "The lightest of all quarks.",
+      "children": null
+    },
+    "down": {
+      "key": "down",
+      "gridtype": "quark",
+      "name": "Down Quark",
+      "short": "d",
+      "wp": "Down_quark",
+      "mass": "4.8 MeV/c2",
+      "charge": -0.3333333333333333,
+      "spin": 0.5,
+      "desc": "The second-lightest of all quarks.",
+      "children": null
+    },
+    "charm": {
+      "key": "charm",
+      "gridtype": "quark",
+      "name": "Charm Quark",
+      "short": "c",
+      "wp": "Charm_quark",
+      "mass": "1275 MeV/c2",
+      "charge": 0.6666666666666666,
+      "spin": 0.5,
+      "desc": "The third most massive of all quarks.",
+      "children": null
+    },
+    "strange": {
+      "key": "strange",
+      "gridtype": "quark",
+      "name": "Strange Quark",
+      "short": "s",
+      "wp": "Strange_quark",
+      "mass": "95 MeV/c2",
+      "charge": -0.3333333333333333,
+      "spin": 0.5,
+      "desc": "The third-lightest of all quarks.",
+      "children": null
+    },
+    "top": {
+      "key": "top",
+      "gridtype": "quark",
+      "name": "Top Quark",
+      "short": "t",
+      "wp": "Top_quark",
+      "mass": "173070 MeV/c2",
+      "charge": 0.6666666666666666,
+      "spin": 0.5,
+      "desc": "The heaviest of all quarks.",
+      "children": null
+    },
+    "bottom": {
+      "key": "bottom",
+      "gridtype": "quark",
+      "name": "Bottom Quark",
+      "short": "b",
+      "wp": "Bottom_quark",
+      "mass": "4180 MeV/c2",
+      "charge": -0.3333333333333333,
+      "spin": 0.5,
+      "desc": "The second-heaviest of all quarks.",
+      "children": null
+    },
+    "electron": {
+      "key": "electron",
+      "gridtype": "lepton",
+      "name": "Electron",
+      "short": "e",
+      "wp": "Electron",
+      "mass": "0.511 MeV/c2",
+      "charge": -1,
+      "spin": 0.5,
+      "desc": "A subatomic particle with a negative elementary eletric charge.",
+      "children": null
+    },
+    "neutrino": {
+      "key": "neutrino",
+      "gridtype": "lepton",
+      "name": "Neutrino",
+      "short": "ν",
+      "wp": "Neutrino",
+      "mass": "2.2 eV/c2",
+      "charge": 0,
+      "spin": 0.5,
+      "desc": "A very light, eletrically neutral particle.",
+      "children": null
+    },
+    "muon": {
+      "key": "muon",
+      "gridtype": "lepton",
+      "name": "Muon",
+      "short": "μ",
+      "wp": "Muon",
+      "mass": "105.7 MeV/c2",
+      "charge": -1,
+      "spin": 0.5,
+      "desc": "Similar to an electron, but much heavier.",
+      "children": null
+    },
+    "mneutrino": {
+      "key": "mneutrino",
+      "gridtype": "lepton",
+      "name": "Muon Neutrino",
+      "short": "νμ",
+      "wp": "Muon_neutrino",
+      "mass": "170 eV/c2",
+      "charge": 0,
+      "spin": 0.5,
+      "desc": "Similar to a neutrino, but heavier.",
+      "children": null
+    },
+    "tau": {
+      "key": "tau",
+      "gridtype": "lepton",
+      "name": "Tau",
+      "short": "τ",
+      "wp": "Tau_(particle)",
+      "mass": "1776.82 MeV/c2",
+      "charge": -1,
+      "spin": 0.5,
+      "desc": "Similar to an electron, but super-duper heavy.",
+      "children": null
+    },
+    "tneutrino": {
+      "key": "tneutrino",
+      "gridtype": "lepton",
+      "name": "Tau Neutrino",
+      "short": "τν",
+      "wp": "Tau_neutrino",
+      "mass": "15.5 MeV/c2",
+      "charge": 0,
+      "spin": 0.5,
+      "desc": "Similar to a neutrino, but heavier.",
+      "children": null
+    },
+    "gluon": {
+      "key": "gluon",
+      "gridtype": "gaugeboson",
+      "name": "Gluon",
+      "short": "g",
+      "wp": "Gluon",
+      "mass": 0,
+      "charge": 0,
+      "spin": 1,
+      "desc": "The gauge boson for the strong force between quarks.",
+      "children": null
+    },
+    "photon": {
+      "key": "photon",
+      "gridtype": "gaugeboson",
+      "name": "Photon",
+      "short": "γ",
+      "wp": "Photon",
+      "mass": 0,
+      "charge": 0,
+      "spin": 1,
+      "desc": "The gauge boson of the electromagnetic force.",
+      "children": null
+    },
+    "zboson": {
+      "key": "zboson",
+      "gridtype": "gaugeboson",
+      "name": "Z Boson",
+      "short": "Z",
+      "wp": "W_and_Z_bosons",
+      "mass": "91.2 GeV/c2",
+      "charge": 0,
+      "spin": 1,
+      "desc": "One of the gauge bosons of the electroweak force.",
+      "children": null
+    },
+    "wboson": {
+      "key": "wboson",
+      "gridtype": "gaugeboson",
+      "name": "W Boson",
+      "short": "W+-",
+      "wp": "W_and_Z_bosons",
+      "mass": "80.4 GeV/c2",
+      "charge": 0,
+      "spin": 0,
+      "desc": "One of the gauge bosons of the electroweak force.",
+      "children": null
+    },
+    "higgs": {
+      "key": "higgs",
+      "gridtype": "higgs",
+      "name": "Higgs Boson",
+      "short": "H",
+      "wp": "Higgs_boson",
+      "mass": "126 GeV/c2",
+      "charge": 0,
+      "spin": 0,
+      "desc": "A quantum excitation of the Higgs field.",
+      "children": null
+    }
+  }
+}

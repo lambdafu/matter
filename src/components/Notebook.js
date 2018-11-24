@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, Transition } from 'semantic-ui-react';
 
-import Scientist from './Scientist';
 import LeadScientist from './LeadScientist';
 
 export function showMessage(text){
@@ -10,7 +9,6 @@ export function showMessage(text){
 export function hideMessage(){
  this.setState({visible: false});
 }
-
 
 class Notebook extends Component {
   constructor(props) {
@@ -25,7 +23,7 @@ class Notebook extends Component {
 
   render() {
       return (
-        <div style={ {width: 290} }>
+        <div style={ {width: 'auto', maxWidth: '290px', marginLeft: 'auto', marginRight: 'auto'} } >
           <LeadScientist />
           <Segment basic vertical>
           <Transition duration={{ hide: 500, show: 100 }} visible={this.state.visible}>
