@@ -1,14 +1,3 @@
-/* Push a notification. */
-export function PUSH_MESSAGE(value)
-{
-    return {
-        type: 'PUSH_MESSAGE',
-        payload: {
-            value: value
-        }
-    };
-}
-
 /* Replace the current state entirely. */
 export function SET_STATE(value)
 {

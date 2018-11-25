@@ -11,10 +11,12 @@ const initState = {
     ui: {
       scientist: "curie",
       topic: "sm",
-      messages: []
+      items: { sm: "photon", pt: "Cu" }
     }
 };
-
+export function updateState(state) {
+  return merge(initState, state);
+}
 
 function reduceState(state, action) {
   if (action.type === 'SET_STATE')
@@ -26,10 +28,9 @@ function reduceState(state, action) {
   return state;
 }
 
-// FIXME: Replace with saga task?
-const state = loadLocalState();
+const currentState = loadLocalState();
 
-let store = createStore(reduceState, merge(initState, state),
+let store = createStore(reduceState, updateState(currentState),
                         applyMiddleware(sagaMiddleware));
 
 export default store;

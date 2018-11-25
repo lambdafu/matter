@@ -1,0 +1,64 @@
+.topicgrid .cell {
+  display: inline-block;
+  border: none;
+  border-color: #505050a0;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  vertical-align: text-bottom;
+  margin: 0.5px;
+  text-align: center;
+}
+
+.topicgrid .cell:hover {
+  border-width: 2px;
+  border-style: dashed;
+  line-height: 21px;
+}
+
+.topicgrid .cell.active,
+.topicgrid .cell.active:hover
+ {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #505050c0;
+  line-height: 21px;
+}
+
+.topicgrid .empty,
+.topicgrid .empty:hover {
+  border: none;
+  line-height: 25px;
+}
+
+.topicgrid .row {
+  line-height: 0;
+}
+
+.topicgrid.doubled .cell {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  margin: 1px;
+}
+
+.topicgrid.doubled .cell:hover,
+.topicgrid.doubled .cell.active {
+  border-width: 3px;
+  border-style: dashed;
+  line-height: 44px;
+}
+
+topicgrid.doubled .empty, .topicgrid.doubled .empty:hover {
+  border: none;
+  line-height: 50px;
+}
+
+.topicgrid.doubled .cell.active,
+.topicgrid.doubled .cell.active:hover
+ {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #505050c0;
+  line-height: 46px;
+}

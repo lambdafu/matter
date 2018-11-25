@@ -1,63 +1,75 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import classNames from 'classnames/bind';
+import classNames from 'classnames/bind';
 
 import { Table, Popup } from 'semantic-ui-react';
 
 import Wp from './Wp';
 
+import './TopicGrid.css';
 
 
-//className={ classNames({active: active_item==item.key}) }
+//
 class GridCellItem extends Component {
 render() {
   const topic = this.props.topic;
-  const item = this.props.item;
-  const row = this.props.row;
-  const col = this.props.col;
+  const item = topic.items[this.props.item];
+  const active = this.props.active;
+
   return (
     <Popup trigger={
-      <Table.Cell key={ col } style={{ backgroundColor: topic.gridtype[item.gridtype].color }}>
-      { item.short }</Table.Cell>}
-  header={item.name}
+      <div className={ classNames({cell: true, active: active}) }
+       style={{ backgroundColor: topic.gridtype[item.gridtype].color }} >
+       { item.short }</div>}
+        header={item.name}
         content={item.desc}
-       positioning="bottom left" />
+        positioning="bottom left" />
   );
 }
 }
 
 class GridCellEmpty extends Component {
   render() {
-      return (<Table.Cell />);
+      const item = this.props.item;
+      return (<div className='cell empty' />);
   }
 }
 
-class GridCell extends Component {
+
+const mapStateToProps = (state) => {
+   return {
+       activeItem: state.ui.items[state.ui.topic]
+   };
+ }
+
+class GridCellImpl extends Component {
   render() {
     const topic = this.props.topic;
     const item = this.props.item;
-    const row = this.props.row;
-    const col = this.props.col;
-        if (item === undefined) {
-    	    return <GridCellEmpty key={col} topic={topic} row={row} col={col} />
-        } else {
-      	    return <GridCellItem key={col} topic={topic} item={item} row={row} col={col} />
-        }
-  }}
+    const activeItem = this.props.activeItem;
+
+    if (item === null) {
+	    return <GridCellEmpty topic={topic} item={item} />
+    } else {
+	    return <GridCellItem topic={topic} item={item} active={activeItem == item}/>
+    }
+}}
+
+const GridCell = connect(mapStateToProps)(GridCellImpl);
 
 class GridRow extends Component {
   render() {
     const topic = this.props.topic;
     const items = this.props.items;
-    const row = this.props.row;
-    const col = this.props.col;
+    const active_item = 'm';
+
     return (
-      <Table.Row>
+      <div className='row'>
         { items.map((itemkey, col) =>
-      		  <GridCell key={col} topic={topic} item={topic.items[itemkey]} row={row} col={col}/>
+      		  <GridCell key={col} topic={topic} item={itemkey} />
       		 )
         }
-     </Table.Row>
+     </div>
    );
   }
 }
@@ -65,13 +77,14 @@ class GridRow extends Component {
 class TopicGrid extends Component {
   render() {
     const topic = this.props.topic;
+
+    const grid = topic.grid;
+
     return (
-    <Table style={{display: 'inline-block', width: 'auto' }} compact={topic.gridui.compact} celled={topic.gridui.celled} size={topic.gridui.size}>
-    <Table.Body>
-      { topic.grid.map((items, row) =>
-         <GridRow key={row} topic={topic} row={row} items={items} /> )}
-    </Table.Body>
-    </Table>
+      <div className={ 'topicgrid ' + topic.gridui.class}>
+      { grid.map((items, row) =>
+         <GridRow key={row} topic={topic} items={items} /> )}
+      </div>
   );
 }
 }

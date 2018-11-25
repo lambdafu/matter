@@ -10,14 +10,16 @@
 	[ "Na", "Mg", null, null, null, null, null, null, null, null, null, null, "Al",  "Si", "P",   "S",  "Cl",  "Ar"  ],
 	[ "K",  "Ca", "Sc", "Ti", "V",  "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga",  "Ge", "As",  "Se", "Br",  "Kr"  ],
 	[ "Rb", "Sr", "Y",  "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In",  "Sn", "Sb",  "Te", "I",   "Xe"  ],
-	[ "Cs", "Ba", null, "Hf", "Ta", "W",  "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl",  "Pb", "Bi",  "Po", "At",  "Rn"  ],
-	[ "Fr", "Ra", null, "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh",  "Fl", "Mc",  "Lv", "Ts",  "Og"  ],
-	[ null, null, null, "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho",  "Er", "Tm",  "Yb", "Lu"  ],
-	[ null, null, null, "Ac", "Th", "Pa", "U",  "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es",  "Fm", "Md",  "No", "Lr"  ]
+	[ "Cs", "Ba", "La", "Hf", "Ta", "W",  "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl",  "Pb", "Bi",  "Po", "At",  "Rn"  ],
+	[ "Fr", "Ra", "Ac", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh",  "Fl", "Mc",  "Lv", "Ts",  "Og"  ],
+  [ null, null, null, null, null, null, null, null, null, null, null, null, null,  null, null,  null, null,  null  ],
+	[ null, null, "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho",  "Er", "Tm",  "Yb",  "Lu", null, null  ],
+	[ null, null, "Th", "Pa", "U",  "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es",  "Fm", "Md",  "No",  "Lr", null, null  ]
     ],
     "gridui": {
 	"compact": true,
 	"celled": true,
+  "class": "single",
 	"size": "small"
     },
     "gridtype": {

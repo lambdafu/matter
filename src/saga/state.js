@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects'
 import { loadLocalState, saveLocalState } from '../store/localstorage'
 import { pushMessage } from './message'
+import { updateState } from '../store';
 
 import { SET_STATE } from '../store/actions'
 
@@ -14,5 +15,6 @@ export function* saveState() {
 
 export function* loadState() {
   const state = yield call(loadLocalState);
-  yield put(SET_STATE(state));
+  const new_state = updateState(state);
+  yield put(SET_STATE(new_state));
 }

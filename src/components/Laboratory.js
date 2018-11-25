@@ -59,10 +59,9 @@ class Laboratory extends Component {
 
           <Divider horizontal>
           <Button.Group size="mini">
-          { ui.topics.map((key) => <Popup trigger={
-              <Button key={key}
-                      topic={ui}
-                     active={topic.key == key}
+          { ui.topics.map((key) => <Popup key={key} trigger={
+              <Button topic={ui}
+                      active={topic.key == key}
                       onClick={() => this.props.setTopic(key)}
                 >
                 {topics[key].short}
