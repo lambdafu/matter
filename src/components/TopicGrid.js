@@ -6,20 +6,38 @@ import { Table, Popup } from 'semantic-ui-react';
 
 import Wp from './Wp';
 
+import { SET_TOPIC_ITEM } from '../store/actions';
+
 import './TopicGrid.css';
 
+const mapStateToProps = (state) => {
+   return {
+       activeItem: state.ui.items[state.ui.topic]
+   };
+ }
 
-//
-class GridCellItem extends Component {
+ const mapDispatchToProps = (dispatch) => {
+     return {
+     setTopicItem: (topic, item) =>
+       dispatch(SET_TOPIC_ITEM(topic, item))
+     }
+
+ }
+
+class GridCellItemImpl extends Component {
 render() {
   const topic = this.props.topic;
   const item = topic.items[this.props.item];
-  const active = this.props.active;
+  const activeItem = this.props.activeItem;
+
+//  const activeItem = this.props.activeItem;
 
   return (
     <Popup trigger={
-      <div className={ classNames({cell: true, active: active}) }
-       style={{ backgroundColor: topic.gridtype[item.gridtype].color }} >
+      <div className={ classNames({cell: true, active: activeItem === item.key}) }
+       style={{ backgroundColor: topic.gridtype[item.gridtype].color }}
+       onClick={() => this.props.setTopicItem(topic.key, item.key) }
+        >
        { item.short }</div>}
         header={item.name}
         content={item.desc}
@@ -27,6 +45,9 @@ render() {
   );
 }
 }
+
+const GridCellItem = connect(mapStateToProps, mapDispatchToProps)(GridCellItemImpl);
+
 
 class GridCellEmpty extends Component {
   render() {
@@ -36,32 +57,24 @@ class GridCellEmpty extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-   return {
-       activeItem: state.ui.items[state.ui.topic]
-   };
- }
 
-class GridCellImpl extends Component {
+class GridCell extends Component {
   render() {
     const topic = this.props.topic;
     const item = this.props.item;
-    const activeItem = this.props.activeItem;
 
     if (item === null) {
 	    return <GridCellEmpty topic={topic} item={item} />
     } else {
-	    return <GridCellItem topic={topic} item={item} active={activeItem == item}/>
+	    return <GridCellItem topic={topic} item={item} />;
     }
 }}
 
-const GridCell = connect(mapStateToProps)(GridCellImpl);
 
 class GridRow extends Component {
   render() {
     const topic = this.props.topic;
     const items = this.props.items;
-    const active_item = 'm';
 
     return (
       <div className='row'>

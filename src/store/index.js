@@ -23,8 +23,11 @@ function reduceState(state, action) {
     return action.payload.value;
   else if (action.type === 'SET_SCIENTIST')
     return { ...state, ui: { ...state.ui, scientist: action.payload.value } }
-    else if (action.type === 'SET_TOPIC')
-      return { ...state, ui: { ...state.ui, topic: action.payload.value } }
+  else if (action.type === 'SET_TOPIC')
+    return { ...state, ui: { ...state.ui, topic: action.payload.value } }
+  else if (action.type === 'SET_TOPIC_ITEM')
+    return { ...state, ui: { ...state.ui, items: { ...state.ui.items,
+      [action.payload.topic]: action.payload.item } } }
   return state;
 }
 
