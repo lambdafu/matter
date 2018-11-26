@@ -10,11 +10,14 @@ import { SET_TOPIC } from '../store/actions';
 
 import ui from '../data/ui';
 import topics from '../data/topics';
+import generators from '../data/generators';
+import upgrades from '../data/upgrades';
 
 
  const mapStateToProps = (state) => {
    return {
-       topic: state.ui.topic
+       topic: state.ui.topic,
+       item: state.ui.items[state.ui.topic]
    };
  }
 
@@ -27,33 +30,17 @@ import topics from '../data/topics';
    }
  }
 
-//className={classNames("tab-pane", "fade", {"active": ui.active_topic == topic.key})}
-
-// let GridtypeTabContent = ({topic, gridtype, ui}) =>
-//     {
-//         let _gridtype = topic.gridtype[gridtype];
-//         return <p className="gridtype-sum"><span className="gridtype-sum-name">{_gridtype.name},</span> <span className="gridtype-sum-desc"><span className="gridtype-sum-desc-first-letter">{_gridtype.desc[0]}</span>{_gridtype.desc.substring(1)}</span> <Wp className="wp" lemma={_gridtype.wp}/></p>
-//     }
-//
-//
-//     let ItemTabContent = ({topic, item, ui}) =>
-//         {
-//             let _item = topic.items[item];
-//             return <p className="item-sum"><span className="item-sum-name">{_item.name},</span> <span className="item-sum-desc"><span className="item-sum-desc-first-letter">{_item.desc[
-//     0]}</span>{_item.desc.substring(1)}</span> <Wp className="wp" lemma={_item.wp}/></p>
-//         }
-// <GridtypeTabContent gridtype={topic.items[ui.active_item[ui.active_topic]].gridtype} topic={topic} ui={ui} />
-// <ItemTabContent item={ui.active_item[ui.active_topic]} topic={topic} ui={ui} />
-
 
 class Laboratory extends Component {
   render() {
       const topic = topics[this.props.topic];
+      const item = topic.items[this.props.item];
+      const gridtype = topic.gridtype[item.gridtype];
 
       return (
           <div>
           <Header as='h1'>{topic.name}</Header>
-          <p>{topic.desc} <Wp className="wp" lemma={topic.wp}><Icon name="wikipedia w" /></Wp></p>
+          <p>{topic.desc} <Wp lemma={topic.wp}><Icon name="wikipedia w" /></Wp></p>
 
           <TopicGrid topic={topic} />
 
@@ -70,9 +57,33 @@ class Laboratory extends Component {
           </Button.Group>
           </Divider>
 
-          <div className="tab-content">
-</div>
+          <div>
+            <h2>{item.name} ({item.short})</h2>
+            <p>{item.desc} <Wp lemma={item.wp}><Icon name="wikipedia w" /></Wp></p>
 
+            <p>
+            <Popup
+               trigger={
+                 <span><strong>{gridtype.name}</strong> <Wp lemma={gridtype.wp}><Icon name='wikipedia w'/></Wp></span>}
+               header={gridtype.name}
+               content={gridtype.desc}
+               size='small'
+             />
+             </p>
+             <ul>
+              {
+                (item.generators || []).map((key) => { const gen = generators[key];
+              return <li key={gen.key}>{gen.name} <Wp lemma={gen.wp}><Icon name='wikipedia w'/></Wp></li>
+           })}
+           </ul>
+
+           <ul>
+            {
+              (item.upgrades || []).map((key) => { const up = upgrades[key];
+            return <li key={up.key}>{up.name} <Wp lemma={up.wp}><Icon name='wikipedia w'/></Wp></li>
+         })}
+         </ul>
+        </div>
 
           </div>
         );

@@ -1,22 +1,22 @@
 {
   "curie": {
     "name": "Madam Curie",
-    "lemma": "Madam_Curie",
+    "wp": "Madam_Curie",
     "image": "curie.jpg",
     "image_source": "https://commons.wikimedia.org/wiki/File:Marie_Curie_(Nobel-Chem).jpg",
     "title": "Physicist",
     "tagline": "I am researching a new element: radium.",
-    "tagline_lemma": "Radium",
+    "tagline_wp": "Radium",
     "achievements": ["physics", "woman", "radium"]
   },
   "einstein": {
     "name": "Albert Einstein",
-    "lemma": "Albert_Einstein",
+    "wp": "Albert_Einstein",
     "image": "einstein.jpg",
     "image_source": "https://commons.wikimedia.org/wiki/File:Einstein_1921_portrait2.jpg",
     "title": "Physicist",
     "tagline": "Everything is relative.",
-    "tagline_lemma": "Special_relativity",
+    "tagline_wp": "Special_relativity",
     "achievements": ["physics", "man", "light"]
   }
 }

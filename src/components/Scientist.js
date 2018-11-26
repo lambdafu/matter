@@ -30,9 +30,9 @@ class Scientist extends Component {
         <Card
           style={{width: 'auto'}}
           image={pathToImg('./' + scientist.image)}
-          header={<Wp lemma={scientist.lemma}>{scientist.name}</Wp>}
+          header={<Wp lemma={scientist.wp}>{scientist.name}</Wp>}
           meta={scientist.title}
-          description={<em><Wp lemma={scientist.tagline_lemma}>{scientist.tagline}</Wp></em>}
+          description={<em><Wp lemma={scientist.tagline_wp}>{scientist.tagline}</Wp></em>}
           extra={extra}
         />
       );

@@ -213,7 +213,8 @@
       "charge": 0,
       "spin": 1,
       "desc": "The gauge boson of the electromagnetic force.",
-      "children": null
+      "children": null,
+      "generators": [ "flashlight", "laser" ]
     },
     "zboson": {
       "key": "zboson",
