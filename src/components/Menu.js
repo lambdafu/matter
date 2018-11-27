@@ -9,7 +9,7 @@ import { version } from '../../package.json';
 class MatterMenu extends Component {
   render() {
       return (
-          <Menu>
+          <Menu secondary>
             <Menu.Item header>Matter v{version}</Menu.Item>
             <Menu.Item onClick={() => sagaMiddleware.run(loadState)}>Load</Menu.Item>
             <Menu.Item onClick={() => sagaMiddleware.run(saveState)}>Save</Menu.Item>

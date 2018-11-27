@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 // Redux for state management.
@@ -8,6 +7,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import 'semantic-ui-css/semantic.min.css';
+import './index.css';
+
 import Main from './components/Main';
 
 ReactDOM.render(
