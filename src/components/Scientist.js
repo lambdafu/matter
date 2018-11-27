@@ -4,8 +4,8 @@ import { Card, Label, Icon, Popup } from 'semantic-ui-react'
 
 import Wp from './Wp';
 
-import achievements from '../data/achievements.json';
-import scientists from '../data/scientists.json';
+import achievements from '../data/achievements';
+import scientists from '../data/scientists';
 
 const pathToImg = require.context('../images/scientist/');
 
