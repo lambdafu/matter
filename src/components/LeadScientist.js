@@ -18,7 +18,7 @@ const scientistOptions = ui.scientists.map(name => ({
 
  const mapStateToProps = (state) => {
    return {
-       lead: state.ui.scientist
+       lead: state.saved.ui.scientist
    };
  }
 

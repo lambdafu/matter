@@ -1,6 +1,6 @@
 export default {
   curie: {
-    name: "Madam Curie",
+    name: "Marie Skłodowska Curie",
     wp: "Madam_Curie",
     image: "curie.jpg",
     image_source: "https://commons.wikimedia.org/wiki/File:Marie_Curie_(Nobel-Chem).jpg",

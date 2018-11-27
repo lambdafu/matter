@@ -9,7 +9,7 @@ export const getState = (state) => state;
 
 export function* saveState() {
   const state = yield select(getState);
-  yield call(saveLocalState, state);
+  yield call(saveLocalState, state.saved);
   yield call(pushMessage, "I saved my progress and called it a day...");
 }
 

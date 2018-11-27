@@ -8,16 +8,13 @@ import TopicGrid from './TopicGrid';
 
 import { SET_TOPIC } from '../store/actions';
 
-import ui from '../data/ui';
-import topics from '../data/topics';
-import generators from '../data/generators';
-import upgrades from '../data/upgrades';
 
 
  const mapStateToProps = (state) => {
    return {
-       topic: state.ui.topic,
-       item: state.ui.items[state.ui.topic]
+       matter: state.matter,
+       topic: state.saved.ui.topic,
+       item: state.saved.ui.items[state.saved.ui.topic]
    };
  }
 
@@ -33,7 +30,8 @@ import upgrades from '../data/upgrades';
 
 class Laboratory extends Component {
   render() {
-      const topic = topics[this.props.topic];
+      const matter = this.props.matter;
+      const topic = matter.topics[this.props.topic];
       const item = topic.items[this.props.item];
       const gridtype = topic.gridtype[item.gridtype];
 
@@ -46,14 +44,14 @@ class Laboratory extends Component {
 
           <Divider horizontal>
           <Button.Group size="mini">
-          { ui.topics.map((key) => <Popup key={key} trigger={
-              <Button topic={ui}
+          { matter.ui.topics.map((key) => <Popup key={key} trigger={
+              <Button topic={matter.ui}
                       active={topic.key == key}
                       onClick={() => this.props.setTopic(key)}
                 >
-                {topics[key].short}
+                {matter.topics[key].short}
               </Button>
-            } content={topics[key].name} positioning='bottom left' />) }
+            } content={matter.topics[key].name} positioning='bottom left' />) }
           </Button.Group>
           </Divider>
 
@@ -72,14 +70,15 @@ class Laboratory extends Component {
              </p>
              <ul>
               {
-                (item.generators || []).map((key) => { const gen = generators[key];
+                //(generators.filter((gen) => gen.output.some((out) => out.item === item.key)))
+                (item.generators || []).map((key) => { const gen = matter.generators[key];
               return <li key={gen.key}>{gen.name} <Wp lemma={gen.wp}><Icon name='wikipedia w'/></Wp></li>
            })}
            </ul>
 
            <ul>
             {
-              (item.upgrades || []).map((key) => { const up = upgrades[key];
+              (item.upgrades || []).map((key) => { const up = matter.upgrades[key];
             return <li key={up.key}>{up.name} <Wp lemma={up.wp}><Icon name='wikipedia w'/></Wp></li>
          })}
          </ul>

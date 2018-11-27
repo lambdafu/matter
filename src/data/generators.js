@@ -13,7 +13,7 @@ export default {
       }],
     },
   },
-  laser: {
+  laserpointer: {
     key: "laserpointer",
     name: "Laserpointer",
     desc: "Don't look into the beam!",

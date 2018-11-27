@@ -4,30 +4,45 @@ import merge from 'deepmerge'
 
 import { loadLocalState } from '../store/localstorage';
 
+import matter from '../data/matter';
+
 export const sagaMiddleware = createSagaMiddleware();
 
-const initState = {
+const initSavedState = {
     version: 0,
     ui: {
       scientist: "curie",
       topic: "sm",
       items: { sm: "photon", pt: "Cu" }
-    }
+    },
+    generators: {},
+    upgrades: {},
 };
-export function updateState(state) {
-  return merge(initState, state);
+
+export function updateState(savedState) {
+  //  const obj = yourArray.reduce((o, key) => ({ ...o, [key]: whatever}), {})
+
+  const saved = merge(initSavedState, savedState || {});
+
+  return { matter, saved  };
 }
 
+// const handlers = {};
+//export const registerHandler = (key, handler) => handlers[key] = handler;
+
 function reduceState(state, action) {
+  //if (handlers.hasOwnProperty(action.type))
+//  return { ...state, ...handlers[action.type](state, action.payload) };
+
   if (action.type === 'SET_STATE')
     return action.payload.value;
   else if (action.type === 'SET_SCIENTIST')
-    return { ...state, ui: { ...state.ui, scientist: action.payload.value } }
+    return { ...state, saved: { ...state.saved, ui: { ...state.saved.ui, scientist: action.payload.value } } }
   else if (action.type === 'SET_TOPIC')
-    return { ...state, ui: { ...state.ui, topic: action.payload.value } }
+    return { ...state, saved: { ...state.saved, ui: { ...state.saved.ui, topic: action.payload.value } } }
   else if (action.type === 'SET_TOPIC_ITEM')
-    return { ...state, ui: { ...state.ui, items: { ...state.ui.items,
-      [action.payload.topic]: action.payload.item } } }
+    return { ...state, saved: { ...state.saved, ui: { ...state.saved.ui, items: { ...state.saved.ui.items,
+      [action.payload.topic]: action.payload.item } } } }
   return state;
 }
 
