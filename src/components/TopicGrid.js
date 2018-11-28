@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 
-import { Table, Popup } from 'semantic-ui-react';
-
-import Wp from './Wp';
+import { Popup } from 'semantic-ui-react';
 
 import { SET_TOPIC_ITEM } from '../store/actions';
 
@@ -51,7 +49,6 @@ const GridCellItem = connect(mapStateToProps, mapDispatchToProps)(GridCellItemIm
 
 class GridCellEmpty extends Component {
   render() {
-      const item = this.props.item;
       return (<div className='cell empty' />);
   }
 }
