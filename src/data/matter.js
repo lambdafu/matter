@@ -1,10 +1,16 @@
+import { version } from '../../package.json';
+import ui from '../data/ui';
 import sm from './sm';
 import pt from './pt';
-
-import ui from '../data/ui';
+import scientists from '../data/scientists';
 import generators from '../data/generators';
 import upgrades from '../data/upgrades';
-import scientists from '../data/scientists';
 
-export default { topics: { sm, pt },
-ui, generators, upgrades, scientists };
+export default {
+  version,
+  ui,
+  topics: { sm, pt },
+  scientists,
+  generators,
+  upgrades,
+};
