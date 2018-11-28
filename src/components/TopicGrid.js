@@ -87,7 +87,6 @@ class GridRow extends Component {
 class TopicGrid extends Component {
   render() {
     const topic = this.props.topic;
-
     const grid = topic.grid;
 
     return (

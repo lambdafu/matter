@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { Card, Label, Icon, Popup } from 'semantic-ui-react'
 
 import Wp from './Wp';
 
 import achievements from '../data/achievements';
-import scientists from '../data/scientists';
 
 const pathToImg = require.context('../images/scientist/');
 
+function mapStateToProps(state, ownProps)
+{
+  return {
+    scientist: state.matter.scientists[ownProps.tag],
+    achievements: state.matter.achievements,
+  };
+}
+
 class Scientist extends Component {
   render() {
-      const scientist = scientists[this.props.name];
+      const scientist = this.props.scientist;
+      const achievements = this.props.achievements;
+
       const extra = (
         <Label.Group>
          {scientist.achievements.map(medal => (
           <Popup
-             key={achievements[medal].name}
+             key={medal}
              trigger={<Label><Icon name={achievements[medal].icon} />{achievements[medal].name}</Label>}
              header={achievements[medal].name}
              content={achievements[medal].info}
@@ -39,4 +49,4 @@ class Scientist extends Component {
       }
     }
 
-export default Scientist;
+export default connect(mapStateToProps)(Scientist);

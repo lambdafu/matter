@@ -9,22 +9,22 @@ import Notification from './Notification';
 
 function mapStateToProps(state) {
   return {
-    lead: state.saved.activeScientist
+    activeScientist: state.saved.activeScientist
   };
 }
-class Notebook extends Component {
 
+class Notebook extends Component {
   render() {
-      return (
-        <div style={ {width: 'auto', maxWidth: '290px', marginLeft: 'auto', marginRight: 'auto'} } >
-          <LeadScientist />
-          <Scientist name={this.props.lead} />
-          <Segment basic vertical>
+    return (
+      <div style={ {width: 'auto', maxWidth: '290px', marginLeft: 'auto', marginRight: 'auto'} } >
+        <LeadScientist />
+        <Scientist tag={this.props.activeScientist} />
+        <Segment basic vertical>
           <Notification />
-          </Segment>
-        </div>
-      );
-      }
-    }
+        </Segment>
+      </div>
+    );
+  }
+}
 
 export default connect(mapStateToProps)(Notebook);
