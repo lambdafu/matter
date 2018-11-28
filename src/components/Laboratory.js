@@ -46,7 +46,7 @@ class Laboratory extends Component {
           <Button.Group size="mini">
           { matter.ui.topics.map((key) => <Popup key={key} trigger={
               <Button topic={matter.ui}
-                      active={topic.key == key}
+                      active={topic.key === key}
                       onClick={() => this.props.setTopic(key)}
                 >
                 {matter.topics[key].short}
