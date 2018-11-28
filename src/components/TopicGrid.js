@@ -10,7 +10,7 @@ import './TopicGrid.css';
 
 const mapStateToProps = (state) => {
    return {
-       activeItem: state.saved.ui.items[state.saved.ui.topic]
+       activeItem: state.saved.items[state.saved.topic]
    };
  }
 

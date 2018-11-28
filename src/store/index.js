@@ -10,11 +10,9 @@ export const sagaMiddleware = createSagaMiddleware();
 
 const initSavedState = {
     version: 0,
-    ui: {
-      scientist: "curie",
-      topic: "sm",
-      items: { sm: "photon", pt: "Cu" }
-    },
+    activeScientist: "curie",
+    topic: "sm",
+    items: { sm: "photon", pt: "Cu" },
     generators: {},
     upgrades: {},
 };
@@ -37,12 +35,12 @@ function reduceState(state, action) {
   if (action.type === 'SET_STATE')
     return action.payload.value;
   else if (action.type === 'SET_SCIENTIST')
-    return { ...state, saved: { ...state.saved, ui: { ...state.saved.ui, scientist: action.payload.value } } }
+    return { ...state, saved: { ...state.saved, activeScientist: action.payload.value } }
   else if (action.type === 'SET_TOPIC')
-    return { ...state, saved: { ...state.saved, ui: { ...state.saved.ui, topic: action.payload.value } } }
+    return { ...state, saved: { ...state.saved, topic: action.payload.value } }
   else if (action.type === 'SET_TOPIC_ITEM')
-    return { ...state, saved: { ...state.saved, ui: { ...state.saved.ui, items: { ...state.saved.ui.items,
-      [action.payload.topic]: action.payload.item } } } }
+    return { ...state, saved: { ...state.saved, items: { ...state.saved.items,
+      [action.payload.topic]: action.payload.item } } }
   return state;
 }
 

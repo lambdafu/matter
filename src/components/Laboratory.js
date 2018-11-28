@@ -13,8 +13,8 @@ import { SET_TOPIC } from '../store/actions';
  const mapStateToProps = (state) => {
    return {
        matter: state.matter,
-       topic: state.saved.ui.topic,
-       item: state.saved.ui.items[state.saved.ui.topic]
+       topic: state.saved.topic,
+       item: state.saved.items[state.saved.topic]
    };
  }
 

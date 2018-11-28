@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import { Dropdown } from 'semantic-ui-react';
 
-import Scientist from './Scientist';
-
 import { SET_SCIENTIST } from '../store/actions';
 
 import scientists from '../data/scientists';
@@ -18,7 +16,7 @@ const scientistOptions = ui.scientists.map(name => ({
 
  const mapStateToProps = (state) => {
    return {
-       lead: state.saved.ui.scientist
+       lead: state.saved.activeScientist
    };
  }
 
@@ -37,7 +35,6 @@ class LeadScientist extends Component {
            <Dropdown fluid placeholder='Select Lead Scientist' selection options={scientistOptions}
          onChange={(e, {value}) => this.props.setLead(value)}
          value={this.props.lead} />
-         <Scientist name={this.props.lead} />
        </div>);
        }
     }
