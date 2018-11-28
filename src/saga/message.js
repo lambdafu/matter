@@ -1,7 +1,7 @@
 import { call, cancel, fork } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 
-import { showMessage, hideMessage } from '../components/Notebook.js'
+import { showMessage, hideMessage } from '../components/Notification.js'
 
 // Singleton.
 let global_notifier;

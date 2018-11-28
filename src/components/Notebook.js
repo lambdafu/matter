@@ -5,13 +5,7 @@ import { Segment, Transition } from 'semantic-ui-react';
 
 import LeadScientist from './LeadScientist';
 import Scientist from './Scientist';
-
-export function showMessage(text){
- this.setState({text, visible: true});
-}
-export function hideMessage(){
- this.setState({visible: false});
-}
+import Notification from './Notification';
 
 function mapStateToProps(state) {
   return {
@@ -19,15 +13,6 @@ function mapStateToProps(state) {
   };
 }
 class Notebook extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        text: "Initial State",
-        visible: false
-    }
-    showMessage = showMessage.bind(this);
-    hideMessage = hideMessage.bind(this);
-  }
 
   render() {
       return (
@@ -35,9 +20,7 @@ class Notebook extends Component {
           <LeadScientist />
           <Scientist name={this.props.lead} />
           <Segment basic vertical>
-          <Transition duration={{ hide: 500, show: 100 }} visible={this.state.visible}>
-            <div>{this.state.text}</div>
-          </Transition>
+          <Notification />
           </Segment>
         </div>
       );
