@@ -32,10 +32,12 @@ export function registerHandler(name, cb)
 {
   const info = functionReflector(cb);
   const args = info.params.map((param) => param.name).slice(1);
+  // eslint-disable-next-line no-new-func
   let new_cb = new Function("cb",
   "return (state, payload) => { const { " + args.join(", " ) + " } = payload; return cb(state, " + args.join(", ") + "); }");
   handlers[name] = new_cb(cb);
   // Return reflected standard action.
+  // eslint-disable-next-line no-new-func
   return new Function(...args, "return { type: '" + name + "', payload: {" +
              args.join(", ") + "}};");
 }

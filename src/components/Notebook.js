@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Segment, Transition } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 import LeadScientist from './LeadScientist';
 import Scientist from './Scientist';

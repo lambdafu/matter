@@ -5,8 +5,6 @@ import { Card, Label, Icon, Popup } from 'semantic-ui-react'
 
 import Wp from './Wp';
 
-import achievements from '../data/achievements';
-
 const pathToImg = require.context('../images/scientist/');
 
 function mapStateToProps(state, ownProps)
