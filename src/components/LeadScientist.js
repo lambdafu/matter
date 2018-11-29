@@ -3,44 +3,36 @@ import { connect } from 'react-redux';
 
 import { Dropdown } from 'semantic-ui-react';
 
-import scientists from '../data/scientists';
-import ui from '../data/ui';
-
 import { registerHandler } from '../store/index.js';
 
-const scientistOptions = ui.scientists.map(name => ({
-   text: scientists[name].name,
-   value: name
- }));
- //     image: { avatar: true, src: '/images/avatar/small/jenny.jpg' },
-
  /* Set the current lead scientist. */
-export const SET_SCIENTIST = registerHandler("SET_SCIENTIST",
-  (state, activeScientist) => { return {...state, activeScientist }});
+export const setLeadScientist = registerHandler("setLeadScientist",
+  (state, leadScientist) => ({...state, leadScientist }));
 
-const mapStateToProps = (state) => {
-   return {
-       lead: state.saved.activeScientist
-   };
- }
+const mapStateToProps = (state) => ({
+  leadScientist: state.saved.leadScientist,
+  scientists: Object.entries(state.matter.scientists)
+    .map(([tag, scientist]) => ({
+      text: scientist.name,
+      value: tag,
+    })),
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-    setLead: (id) => {
-      dispatch(SET_SCIENTIST(id))
-    }
-  }
-}
+const mapDispatchToProps = ({
+  setLeadScientist,
+});
 
 class LeadScientist extends Component {
   render() {
-         return (
-           <div>
-           <Dropdown fluid placeholder='Select Lead Scientist' selection options={scientistOptions}
-         onChange={(e, {value}) => this.props.setLead(value)}
-         value={this.props.lead} />
-       </div>);
-       }
-    }
+    return (
+      <div>
+        <Dropdown fluid selection placeholder='Select Lead Scientist'
+          options={this.props.scientists}
+          onChange={(e, {value}) => this.props.setLeadScientist(value)}
+          value={this.props.leadScientist} />
+      </div>
+    );
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeadScientist);

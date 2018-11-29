@@ -11,7 +11,7 @@ export const sagaMiddleware = createSagaMiddleware();
 
 const initSavedState = {
     version: 0,
-    activeScientist: "curie",
+    leadScientist: "curie",
     topic: "sm",
     items: { sm: "photon", pt: "Cu" },
     generators: {},
