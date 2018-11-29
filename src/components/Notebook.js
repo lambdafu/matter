@@ -9,7 +9,7 @@ import Notification from './Notification';
 
 function mapStateToProps(state) {
   return {
-    activeScientist: state.saved.activeScientist
+    leadScientist: state.saved.leadScientist
   };
 }
 
@@ -18,9 +18,9 @@ class Notebook extends Component {
     return (
       <div style={ {width: 'auto', maxWidth: '290px', marginLeft: 'auto', marginRight: 'auto'} } >
         <LeadScientist />
-        <Scientist tag={this.props.activeScientist} />
+        <Scientist tag={this.props.leadScientist} />
         <Segment basic vertical>
-          <Notification />
+          <Notification test={2} />
         </Segment>
       </div>
     );

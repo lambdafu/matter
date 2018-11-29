@@ -1,25 +1,47 @@
-import { call, put, select } from 'redux-saga/effects'
+import { call, put, select, take } from 'redux-saga/effects'
 import { loadLocalState, saveLocalState } from '../store/localstorage'
-import { pushMessage } from './message'
-import { updateState } from '../store';
+import { registerHandler, updateState } from '../store';
+import { run } from '.';
 
-import { SET_STATE } from '../store/actions'
+export const setState = registerHandler("setState",
+  (state, value) => value.saved);
 
+export const resetState = registerHandler("resetState",
+  (state) => state);
 
-export function* resetState() {
+export const loadState = registerHandler("loadState",
+  (state) => state);
+
+export const saveState = registerHandler("saveState",
+  (state) => state);
+
+export function* resetStateTask() {
   const new_state = updateState(undefined);
-  yield put(SET_STATE(new_state));
+  yield put(setState(new_state));
 }
 
-export function* loadState() {
+export function* loadStateTask() {
   const state = yield call(loadLocalState);
   const new_state = updateState(state);
-  yield put(SET_STATE(new_state));
+  yield put(setState(new_state));
 }
 
-export function* saveState() {
+export function* saveStateTask() {
   const getState = (state) => state;
   const state = yield select(getState);
   yield call(saveLocalState, state.saved);
-  yield call(pushMessage, "I saved my progress and called it a day...");
 }
+
+function* stateManager() {
+  while (true) {
+    const action = yield take(["resetState", "loadState", "saveState"]);
+      if (action.type === "resetState")
+        yield call(resetStateTask);
+      else if (action.type === "loadState")
+        yield call(loadStateTask);
+      else if (action.type === "saveState")
+        yield call(saveStateTask);
+    }
+  }
+
+run(stateManager);

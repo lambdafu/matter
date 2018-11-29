@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import { Menu } from 'semantic-ui-react';
 
-import { sagaMiddleware } from '../store';
 import { resetState, loadState, saveState } from '../saga/state';
-
 
 const mapStateToProps = (state) => {
   return {
@@ -13,13 +11,11 @@ const mapStateToProps = (state) => {
   };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    resetState: () => sagaMiddleware.run(resetState),
-    loadState: () => sagaMiddleware.run(loadState),
-    saveState: () => sagaMiddleware.run(saveState),
-  }
-}
+const mapDispatchToProps = ({
+  resetState,
+  loadState,
+  saveState,
+});
 
 class MatterMenu extends Component {
   render() {

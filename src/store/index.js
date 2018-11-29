@@ -10,20 +10,22 @@ import matter from '../data/matter';
 export const sagaMiddleware = createSagaMiddleware();
 
 const initSavedState = {
-    version: 0,
-    leadScientist: "curie",
-    topic: "sm",
-    items: { sm: "photon", pt: "Cu" },
-    generators: {},
-    upgrades: {},
+  version: 0,
+  leadScientist: "curie",
+  topic: "sm",
+  items: { sm: "photon", pt: "Cu" },
+  generators: {},
+  upgrades: {},
 };
+
+const initUiState = { message: null };
 
 export function updateState(savedState) {
   //  const obj = yourArray.reduce((o, key) => ({ ...o, [key]: whatever}), {})
 
-  const saved = merge(initSavedState, savedState || {});
+  const saved = merge(initSavedState, savedState || {}, { ui: initUiState });
 
-  return { matter, saved  };
+  return { matter, saved };
 }
 
 const handlers = {};
@@ -45,8 +47,6 @@ export function registerHandler(name, cb)
 function reduceState(state, action) {
   if (handlers.hasOwnProperty(action.type))
     return { ...state, saved: handlers[action.type](state.saved, action.payload) };
-  else if (action.type === 'SET_STATE')
-    return action.payload.value;
   else if (action.type === 'SET_TOPIC')
     return { ...state, saved: { ...state.saved, topic: action.payload.value } }
   else if (action.type === 'SET_TOPIC_ITEM')
