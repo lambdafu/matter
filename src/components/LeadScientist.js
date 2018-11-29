@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 import { Dropdown } from 'semantic-ui-react';
 
-import { SET_SCIENTIST } from '../store/actions';
-
 import scientists from '../data/scientists';
 import ui from '../data/ui';
+
+import { registerHandler } from '../store/index.js';
 
 const scientistOptions = ui.scientists.map(name => ({
    text: scientists[name].name,
@@ -14,7 +14,11 @@ const scientistOptions = ui.scientists.map(name => ({
  }));
  //     image: { avatar: true, src: '/images/avatar/small/jenny.jpg' },
 
- const mapStateToProps = (state) => {
+ /* Set the current lead scientist. */
+export const SET_SCIENTIST = registerHandler("SET_SCIENTIST",
+  (state, activeScientist) => { return {...state, activeScientist }});
+
+const mapStateToProps = (state) => {
    return {
        lead: state.saved.activeScientist
    };

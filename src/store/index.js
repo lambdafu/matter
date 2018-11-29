@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import merge from 'deepmerge'
+import functionReflector from 'js-function-reflector';
 
 import { loadLocalState } from '../store/localstorage';
 
@@ -25,17 +26,25 @@ export function updateState(savedState) {
   return { matter, saved  };
 }
 
-// const handlers = {};
-//export const registerHandler = (key, handler) => handlers[key] = handler;
+const handlers = {};
+
+export function registerHandler(name, cb)
+{
+  const info = functionReflector(cb);
+  const args = info.params.map((param) => param.name).slice(1);
+  let new_cb = new Function("cb",
+  "return (state, payload) => { const { " + args.join(", " ) + " } = payload; return cb(state, " + args.join(", ") + "); }");
+  handlers[name] = new_cb(cb);
+  // Return reflected standard action.
+  return new Function(...args, "return { type: '" + name + "', payload: {" +
+             args.join(", ") + "}};");
+}
 
 function reduceState(state, action) {
-  //if (handlers.hasOwnProperty(action.type))
-//  return { ...state, ...handlers[action.type](state, action.payload) };
-
-  if (action.type === 'SET_STATE')
+  if (handlers.hasOwnProperty(action.type))
+    return { ...state, saved: handlers[action.type](state.saved, action.payload) };
+  else if (action.type === 'SET_STATE')
     return action.payload.value;
-  else if (action.type === 'SET_SCIENTIST')
-    return { ...state, saved: { ...state.saved, activeScientist: action.payload.value } }
   else if (action.type === 'SET_TOPIC')
     return { ...state, saved: { ...state.saved, topic: action.payload.value } }
   else if (action.type === 'SET_TOPIC_ITEM')
@@ -46,7 +55,8 @@ function reduceState(state, action) {
 
 const currentState = loadLocalState();
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let store = createStore(reduceState, updateState(currentState),
-                        applyMiddleware(sagaMiddleware));
+                        composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 export default store;

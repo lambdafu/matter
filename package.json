@@ -5,6 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "deepmerge": "^2.2.1",
+    "js-function-reflector": "^2.0.3",
     "json-loader": "^0.5.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

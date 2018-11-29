@@ -9,7 +9,6 @@ import TopicGrid from './TopicGrid';
 import { SET_TOPIC } from '../store/actions';
 
 
-
  const mapStateToProps = (state) => {
    return {
        matter: state.matter,

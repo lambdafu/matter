@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { Transition } from 'semantic-ui-react';
 
-export function showMessage(text){
+export let showMessage = (text) => {
  this.setState({text, visible: true});
 }
 
-export function hideMessage(){
+export let hideMessage = () => {
  this.setState({visible: false});
 }
 
