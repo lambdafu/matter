@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Divider, Button, Header, Popup, Icon } from 'semantic-ui-react';
-
 import Wp from './Wp';
 import TopicGrid from './TopicGrid';
 
-import { SET_TOPIC } from '../store/actions';
+import { registerHandler } from '../store';
 
+export const setTopic = registerHandler("setTopic",
+  (state, topic) => ({ ...state, topic }));
 
  const mapStateToProps = (state) => {
    return {
@@ -17,15 +18,9 @@ import { SET_TOPIC } from '../store/actions';
    };
  }
 
-
- const mapDispatchToProps = (dispatch) => {
-     return {
-     setTopic: (id) => {
-       dispatch(SET_TOPIC(id))
-     }
-   }
- }
-
+ const mapDispatchToProps = ({
+    setTopic
+ });
 
 class Laboratory extends Component {
   render() {

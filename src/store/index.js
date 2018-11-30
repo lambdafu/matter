@@ -47,11 +47,6 @@ export function registerHandler(name, cb)
 function reduceState(state, action) {
   if (handlers.hasOwnProperty(action.type))
     return { ...state, saved: handlers[action.type](state.saved, action.payload) };
-  else if (action.type === 'SET_TOPIC')
-    return { ...state, saved: { ...state.saved, topic: action.payload.value } }
-  else if (action.type === 'SET_TOPIC_ITEM')
-    return { ...state, saved: { ...state.saved, items: { ...state.saved.items,
-      [action.payload.topic]: action.payload.item } } }
   return state;
 }
 

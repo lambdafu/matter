@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 import { Popup } from 'semantic-ui-react';
 
-import { SET_TOPIC_ITEM } from '../store/actions';
+import { registerHandler } from '../store';
 
 import './TopicGrid.css';
 
@@ -14,13 +14,13 @@ const mapStateToProps = (state) => {
    };
  }
 
- const mapDispatchToProps = (dispatch) => {
-     return {
-     setTopicItem: (topic, item) =>
-       dispatch(SET_TOPIC_ITEM(topic, item))
-     }
+export const setTopicItem = registerHandler("setTopicItem",
+  (state, topic, item) => ({ ...state,
+    items: { ...state.items, [topic]: item } }));
 
- }
+const mapDispatchToProps = ({
+   setTopicItem
+});
 
 class GridCellItemImpl extends Component {
 render() {
