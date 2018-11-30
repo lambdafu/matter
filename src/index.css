@@ -1,6 +1,7 @@
 .ui.secondary.menu {
    background-color: #8070a0;
    border-bottom: 1px solid #a090c0;
+   margin-bottom: 0px;
 }
 
 .ui.menu .item,
