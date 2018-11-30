@@ -4,7 +4,7 @@ import { registerHandler, updateState } from '../store';
 import { run } from '.';
 
 export const setState = registerHandler("setState",
-  (state, value) => value.saved);
+  (state, saved) => saved);
 
 export const resetState = registerHandler("resetState",
   (state) => state);
@@ -17,13 +17,13 @@ export const saveState = registerHandler("saveState",
 
 export function* resetStateTask() {
   const new_state = updateState(undefined);
-  yield put(setState(new_state));
+  yield put(setState(new_state.saved));
 }
 
 export function* loadStateTask() {
   const state = yield call(loadLocalState);
   const new_state = updateState(state);
-  yield put(setState(new_state));
+  yield put(setState(new_state.saved));
 }
 
 export function* saveStateTask() {
