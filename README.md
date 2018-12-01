@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Matter
+
+* "Playing to wait: A taxonomy of idle games"[1]
+
+[1]: https://pixl.nmsu.edu/files/2018/02/2018-chi-idle.pdf
 
 ## Available Scripts
 
