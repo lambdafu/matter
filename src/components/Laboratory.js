@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Divider, Button, Header, Popup, Icon } from 'semantic-ui-react';
-import Wp from './Wp';
-import TopicGrid from './TopicGrid';
+import {
+  Button,
+  Divider,
+  Header,
+  Icon,
+  Popup,
+} from 'semantic-ui-react';
 
-import { registerHandler } from '../store';
+import Wp from './Wp.js';
+import TopicGrid from './TopicGrid.js';
 
-export const setTopic = registerHandler("setTopic",
-  (state, topic) => ({ ...state, topic }));
+import { registerHandler } from '../store/reducer.js';
+
+export const setTopic = registerHandler('setTopic',
+  (state, topic) => ({ topic }));
 
  const mapStateToProps = (state) => {
    return {
        matter: state.matter,
        topic: state.saved.topic,
-       item: state.saved.items[state.saved.topic]
+       item: state.saved.items[state.saved.topic],
    };
  }
 
  const mapDispatchToProps = ({
-    setTopic
+    setTopic,
  });
 
 class Laboratory extends Component {
@@ -32,12 +39,12 @@ class Laboratory extends Component {
       return (
           <div>
           <Header as='h1'>{topic.name}</Header>
-          <p>{topic.desc} <Wp lemma={topic.wp}><Icon name="wikipedia w" /></Wp></p>
+          <p>{topic.desc} <Wp lemma={topic.wp}><Icon name='wikipedia w' /></Wp></p>
 
           <TopicGrid topic={topic} />
 
           <Divider horizontal>
-          <Button.Group size="mini">
+          <Button.Group size='mini'>
           { matter.ui.topics.map((key) => <Popup key={key} trigger={
               <Button topic={matter.ui}
                       active={topic.key === key}
@@ -51,7 +58,7 @@ class Laboratory extends Component {
 
           <div>
             <h2>{item.name} ({item.short})</h2>
-            <p>{item.desc} <Wp lemma={item.wp}><Icon name="wikipedia w" /></Wp></p>
+            <p>{item.desc} <Wp lemma={item.wp}><Icon name='wikipedia w' /></Wp></p>
 
             <p>
             <Popup

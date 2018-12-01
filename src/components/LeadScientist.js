@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import { Dropdown } from 'semantic-ui-react';
 
-import { registerHandler } from '../store/index.js';
+import { registerHandler } from '../store/reducer.js';
 
  /* Set the current lead scientist. */
 export const setLeadScientist = registerHandler("setLeadScientist",
-  (state, leadScientist) => ({...state, leadScientist }));
+  (state, leadScientist) => ({ leadScientist }));
 
 const mapStateToProps = (state) => ({
   leadScientist: state.saved.leadScientist,
@@ -28,7 +28,7 @@ class LeadScientist extends Component {
       <div>
         <Dropdown fluid selection placeholder='Select Lead Scientist'
           options={this.props.scientists}
-          onChange={(e, {value}) => this.props.setLeadScientist(value)}
+          onChange={(_, { value }) => this.props.setLeadScientist(value)}
           value={this.props.leadScientist} />
       </div>
     );

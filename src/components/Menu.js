@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Menu } from 'semantic-ui-react';
 
-import { resetState, loadState, saveState } from '../saga/state';
+import { resetState, loadState, saveState } from '../saga/state.js';
 
 const mapStateToProps = (state) => {
   return {

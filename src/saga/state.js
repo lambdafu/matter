@@ -1,19 +1,17 @@
-import { call, put, select, take } from 'redux-saga/effects'
-import { loadLocalState, saveLocalState } from '../store/localstorage'
-import { registerHandler, updateState } from '../store';
-import { run } from '.';
+import { call, put, select, take } from 'redux-saga/effects';
 
-export const setState = registerHandler("setState",
+import { updateState } from '../store/index.js';
+import { loadLocalState, saveLocalState } from '../store/localstorage.js';
+import { registerHandler } from '../store/reducer.js';
+
+export const setState = registerHandler('setState',
   (state, saved) => saved);
 
-export const resetState = registerHandler("resetState",
-  (state) => state);
+export const resetState = registerHandler('resetState');
 
-export const loadState = registerHandler("loadState",
-  (state) => state);
+export const loadState = registerHandler('loadState');
 
-export const saveState = registerHandler("saveState",
-  (state) => state);
+export const saveState = registerHandler('saveState');
 
 export function* resetStateTask() {
   const new_state = updateState(undefined);
@@ -32,16 +30,19 @@ export function* saveStateTask() {
   yield call(saveLocalState, state.saved);
 }
 
-function* stateManager() {
+export function* stateManager() {
   while (true) {
-    const action = yield take(["resetState", "loadState", "saveState"]);
-      if (action.type === "resetState")
-        yield call(resetStateTask);
-      else if (action.type === "loadState")
-        yield call(loadStateTask);
-      else if (action.type === "saveState")
-        yield call(saveStateTask);
-    }
-  }
+    const action = yield take([
+      resetState.type,
+      loadState.type,
+      saveState.type,
+    ]);
 
-run(stateManager);
+    if (action.type === resetState.type)
+      yield call(resetStateTask);
+    else if (action.type === loadState.type)
+      yield call(loadStateTask);
+    else if (action.type === saveState.type)
+      yield call(saveStateTask);
+  }
+}

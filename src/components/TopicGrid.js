@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 import { Popup } from 'semantic-ui-react';
 
-import { registerHandler } from '../store';
+import { registerHandler } from '../store/reducer.js';
 
 import './TopicGrid.css';
 
@@ -15,8 +15,9 @@ const mapStateToProps = (state) => {
  }
 
 export const setTopicItem = registerHandler("setTopicItem",
-  (state, topic, item) => ({ ...state,
-    items: { ...state.items, [topic]: item } }));
+  (state, topic, item) => ({
+    items: { ...state.items, [topic]: item },
+  }));
 
 const mapDispatchToProps = ({
    setTopicItem

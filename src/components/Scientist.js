@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Card, Label, Icon, Popup } from 'semantic-ui-react'
+import { Card, Label, Icon, Popup } from 'semantic-ui-react';
 
-import Wp from './Wp';
+import Wp from './Wp.js';
 
 const pathToImg = require.context('../images/scientist/');
 
