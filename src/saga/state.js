@@ -1,6 +1,6 @@
 import { call, put, select, take } from 'redux-saga/effects';
 
-import { updateState } from '../store/index.js';
+import { updateState } from '../store/reducer.js';
 import { loadLocalState, saveLocalState } from '../store/localstorage.js';
 import { registerHandler } from '../store/reducer.js';
 
@@ -31,6 +31,9 @@ export function* saveStateTask() {
 }
 
 export function* stateManager() {
+  // Load initial state.
+  yield call(loadStateTask);
+
   while (true) {
     const action = yield take([
       resetState.type,
