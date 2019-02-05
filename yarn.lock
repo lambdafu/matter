@@ -884,6 +884,11 @@
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.2.tgz#e13182e1b69871a422d7863e11a4a6f5b814a4bd"
   integrity sha512-42zEJkBpNfMEAvWR5WlwtTH22oDzcMjFsL9gDGExwF8X8WvAiw7Vwop7hPw03QT8TKfec83LwbHj6SvpqM4ELQ==
 
+"@uandi/javascript-lp-solver@^0.4.5":
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/@uandi/javascript-lp-solver/-/javascript-lp-solver-0.4.5.tgz#2f6ff7c36342245194e37d379f97a5b930e0c969"
+  integrity sha512-ppIxbxiJZ1XsY1Is3GXxWmdRjlwlGXf0dXdQYW5zKCQtiK4Y2p8dL/EpUhiC3fwTw9ScZPVZYgD2i0FEHKgjsw==
+
 "@webassemblyjs/ast@1.7.6":
   version "1.7.6"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.6.tgz#3ef8c45b3e5e943a153a05281317474fef63e21e"

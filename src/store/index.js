@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import { stateManager } from '../saga/state.js';
-import { loadLocalState } from './localstorage.js';
 import { rootReducer } from './reducer.js';
 
 export const sagaMiddleware = createSagaMiddleware();

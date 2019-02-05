@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@uandi/javascript-lp-solver": "^0.4.5",
     "classnames": "^2.2.6",
     "deepmerge": "^2.2.1",
     "js-function-reflector": "^2.0.3",
