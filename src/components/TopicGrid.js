@@ -5,19 +5,21 @@ import classNames from 'classnames/bind';
 import { Popup } from 'semantic-ui-react';
 
 import { registerHandler } from '../store/reducer.js';
+import merge from 'deepmerge';
 
 import './TopicGrid.css';
 
 const mapStateToProps = (state) => {
-   return {
-       activeItem: state.saved.items[state.saved.topic]
-   };
- }
+  return {
+    activeItem: state.saved.gui.items[state.saved.gui.topic]
+  };
+};
 
 export const setTopicItem = registerHandler("setTopicItem",
-  (state, topic, item) => ({
-    items: { ...state.items, [topic]: item },
-  }));
+  (state, topic, item) => (merge(state, {
+    gui: { items: { [topic]: item } },
+  }))
+);
 
 const mapDispatchToProps = ({
    setTopicItem

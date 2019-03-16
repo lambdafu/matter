@@ -13,27 +13,35 @@ import Wp from './Wp.js';
 import TopicGrid from './TopicGrid.js';
 
 import { registerHandler } from '../store/reducer.js';
+import merge from 'deepmerge';
 
 export const setTopic = registerHandler('setTopic',
-  (state, topic) => ({ topic }));
+  (state, topic) => (merge(state, {
+    gui: { topic }
+  }))
+);
 
- const mapStateToProps = (state) => {
-   return {
-       matter: state.matter,
-       topic: state.saved.topic,
-       item: state.saved.items[state.saved.topic],
-   };
- }
+const mapStateToProps = (state) => {
+  const topic = state.saved.gui.topic;
+  const item = state.saved.gui.items[topic];
+  return {
+    matter: state.matter,
+    topic: topic,
+    item: item,
+    stock: state.saved.topics[topic][item],
+  };
+};
 
- const mapDispatchToProps = ({
-    setTopic,
- });
+const mapDispatchToProps = ({
+  setTopic,
+});
 
 class Laboratory extends Component {
-  render() {
+    render() {
       const matter = this.props.matter;
       const topic = matter.topics[this.props.topic];
       const item = topic.items[this.props.item];
+      const stock = this.props.stock;
       const gridtype = topic.gridtype[item.gridtype];
 
       return (
@@ -59,7 +67,7 @@ class Laboratory extends Component {
           <div>
             <h2>{item.name} ({item.short})</h2>
             <p>{item.desc} <Wp lemma={item.wp}><Icon name='wikipedia w' /></Wp></p>
-
+            <p>Count: {stock.count}</p>
             <p>
             <Popup
                trigger={
