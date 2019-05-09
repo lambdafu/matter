@@ -1,4 +1,5 @@
 .topicgrid .cell {
+  position: relative;
   display: inline-block;
   border: none;
   border-color: #505050a0;
@@ -6,12 +7,14 @@
   height: 30px;
   line-height: 30px;
   vertical-align: text-bottom;
+  padding: 2px;
   margin: 0.5px;
   text-align: center;
 }
 
 .topicgrid .cell:hover {
   border-width: 2px;
+  padding: 0px;
   border-style: dashed;
   line-height: 26px;
 }
@@ -20,9 +23,18 @@
 .topicgrid .cell.active:hover
  {
   border-width: 2px;
+  padding: 0px;
   border-style: solid;
   border-color: #505050c0;
   line-height: 26px;
+}
+.topicgrid .cell .count {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  color: rgba(0,0,0,0.6);
+  font-size: 8px;
+  line-height: 8px;
 }
 
 .topicgrid .empty,

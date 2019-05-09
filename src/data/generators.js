@@ -1,4 +1,5 @@
 export default {
+  // SM: Photon
   flashlight: {
     key: "flashlight",
     name: "Flashlight",
@@ -23,21 +24,40 @@ export default {
       inputs: [],
       outputs: [{
         item: "photon",
-        count: 100
+        count: 100,
       }],
     },
   },
   laser: {
     key: "laser",
     name: "Laser",
-    desc: "light amplification by stimulated emission of radiation.",
+    desc: "Light amplification by stimulated emission of radiation.",
     wp: "Laser",
     baseCost: 10000,
     effects: {
       inputs: [],
       outputs: [{
         item: "photon",
-        count: 10000
+        count: 10000,
+      }],
+    },
+  },
+
+  // SM: Electron
+  solarpanel: {
+    key: "solarpanel",
+    name: "Solar Panel",
+    desc: "Electrons being elevated by light.",
+    wp: "Photodiode",
+    baseCost: 10,
+    effects: {
+      inputs: [{
+        item: "photon",
+        count: 100,
+      }],
+      outputs: [{
+        item: "electron",
+        count: 1,
       }],
     },
   },

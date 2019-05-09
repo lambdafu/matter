@@ -7,41 +7,37 @@ const initialState = {
   saved: {
     version: 0,
     leadScientist: 'curie',
-    gui: {
+    // GUI
+    active: {
       topic: 'sm',
-      items: { sm: 'photon', pt: 'Cu' },
+      item: { sm: 'photon', pt: 'Cu' },
     },
-    // Filled in updateState.
-    topics: {},
+    // Filled in updateState below.
+    items: {},
     generators: {},
     upgrades: {},
   },
 };
 
 export function updateState(savedState) {
-  // Create the initial topics with items.
-  const topics = {};
-  for (const [topic_name, topic] of Object.entries(matter.topics)) {
-    const items = {};
-    topics[topic_name] = items;
-    for (const [item_name, item] of Object.entries(topic.items)) {
-      items[item_name] = { available: false, count: 0 };
-    }
+  const items = {};
+  for (const item_name in matter.items) {
+    items[item_name] = { available: false, count: 0 };
   }
 
   const generators = {};
-  for (const [generator_name, generator] of Object.entries(matter.generators)) {
+  for (const generator_name in matter.generators) {
     generators[generator_name] = { available: false, count: 0 };
   }
 
   const upgrades = {};
-  for (const [upgrade_name, upgrade] of Object.entries(matter.upgrades)) {
+  for (const upgrade_name in matter.upgrades) {
     upgrades[upgrade_name] = { available: false, acquired: false };
   }
 
   // Enrich the initial state by the generated initial state.
   const initial_state = merge(initialState, { saved: {
-    topics,
+    items,
     generators,
     upgrades,
   }});

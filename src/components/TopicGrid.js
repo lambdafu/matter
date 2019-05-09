@@ -11,13 +11,15 @@ import './TopicGrid.css';
 
 const mapStateToProps = (state) => {
   return {
-    activeItem: state.saved.gui.items[state.saved.gui.topic]
+    activeItem: state.saved.active.item[state.saved.active.topic],
+    matter: state.matter,
+    itemStates: state.saved.items,
   };
 };
 
 export const setTopicItem = registerHandler("setTopicItem",
-  (state, topic, item) => (merge(state, {
-    gui: { items: { [topic]: item } },
+  (state, topicKey, itemKey) => (merge(state, {
+    active: { item: { [topicKey]: itemKey } },
   }))
 );
 
@@ -27,22 +29,23 @@ const mapDispatchToProps = ({
 
 class GridCellItemImpl extends Component {
 render() {
+  const matter = this.props.matter;
   const topic = this.props.topic;
-  const item = topic.items[this.props.item];
+  const itemKey = this.props.itemKey;
+  const item = this.props.matter.items[itemKey];
   const activeItem = this.props.activeItem;
-
-//  const activeItem = this.props.activeItem;
-
+  const itemStates = this.props.itemStates;
+    
   return (
     <Popup trigger={
-      <div className={ classNames({cell: true, active: activeItem === item.key}) }
-       style={{ backgroundColor: topic.gridtype[item.gridtype].color }}
-       onClick={() => this.props.setTopicItem(topic.key, item.key) }
-        >
-       { item.short }</div>}
-        header={item.name}
-        content={item.desc}
-        positioning="bottom left" />
+      <div className={ classNames({cell: true, active: activeItem === itemKey}) }
+       style={{ backgroundColor: matter.categories[item.category].color }}
+       onClick={() => this.props.setTopicItem(topic.key, itemKey) }
+        ><p>
+            { item.short }<span class='count'>{Math.trunc(itemStates[itemKey].count)}</span></p></div>}
+         header={item.name}
+         content={item.desc}
+         positioning="bottom left" />
   );
 }
 }
@@ -66,7 +69,7 @@ class GridCell extends Component {
     if (item === null) {
 	    return <GridCellEmpty topic={topic} item={item} />
     } else {
-	    return <GridCellItem topic={topic} item={item} />;
+	    return <GridCellItem topic={topic} itemKey={item} />;
     }
 }}
 
@@ -79,13 +82,12 @@ class GridRow extends Component {
     return (
       <div className='row'>
         { items.map((itemkey, col) =>
-      		  <GridCell key={col} topic={topic} item={itemkey} />
-      		 )
-        }
+          <GridCell key={col} topic={topic} item={itemkey} />)}
      </div>
    );
   }
 }
+
 
 class TopicGrid extends Component {
   render() {
@@ -94,11 +96,11 @@ class TopicGrid extends Component {
 
     return (
       <div className={ 'topicgrid ' + topic.gridui.class}>
-      { grid.map((items, row) =>
-         <GridRow key={row} topic={topic} items={items} /> )}
+        { grid.map((items, row) =>
+          <GridRow key={row} topic={topic} items={items} />)}
       </div>
-  );
-}
+    );
+  }
 }
 
 export default TopicGrid;
