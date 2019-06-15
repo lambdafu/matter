@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import {
   Header,
-  Icon,
 } from 'semantic-ui-react';
 
 import Wp from './Wp.js';

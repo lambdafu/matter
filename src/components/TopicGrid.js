@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     activeItem: state.saved.active.item[state.saved.active.topic],
     matter: state.matter,
     itemStates: state.saved.items,
+    prediction: state.saved.prediction ? state.saved.prediction.result : undefined,
   };
 };
 
@@ -35,14 +36,17 @@ render() {
   const item = this.props.matter.items[itemKey];
   const activeItem = this.props.activeItem;
   const itemStates = this.props.itemStates;
-    
+
+    // const prediction = this.props.prediction;
+    //             <span className='utilization'>{(prediction !== undefined && prediction[itemKey].maxdelta != 0) ? Math.trunc(100 * prediction[itemKey].delta / Math.abs(prediction[itemKey].maxdelta)) : 0}%</span>
+
   return (
     <Popup trigger={
       <div className={ classNames({cell: true, active: activeItem === itemKey}) }
        style={{ backgroundColor: matter.categories[item.category].color }}
        onClick={() => this.props.setTopicItem(topic.key, itemKey) }
-        ><p>
-            { item.short }<span class='count'>{Math.trunc(itemStates[itemKey].count)}</span></p></div>}
+            ><p>{ item.short }<span className='count'>{Math.trunc(itemStates[itemKey].count)}</span>
+            </p></div>}
          header={item.name}
          content={item.desc}
          positioning="bottom left" />

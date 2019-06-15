@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Item, Button, Icon, Popup } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react';
 
 import Wp from './Wp.js';
 import Generator from './Generator.js';
@@ -15,6 +15,8 @@ function mapStateToProps(state, ownProps)
   };
 }
 
+// Filter generators: Maybe only those who output the item, or those who output or consume the item.  Maybe both in individual groups.
+// This might make it easier to find issues in the production/consumption.
 class MatterItem extends Component {
     render() {
       const matter = this.props.matter;

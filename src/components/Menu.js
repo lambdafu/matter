@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Menu } from 'semantic-ui-react';
 
 import { resetState, loadState, saveState } from '../saga/state.js';
+import { updatePrediction } from '../logic/predict.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,6 +16,7 @@ const mapDispatchToProps = ({
   resetState,
   loadState,
   saveState,
+  updatePrediction,
 });
 
 class MatterMenu extends Component {
@@ -25,6 +27,7 @@ class MatterMenu extends Component {
             <Menu.Item onClick={this.props.resetState}>Reset</Menu.Item>
             <Menu.Item onClick={this.props.loadState}>Load</Menu.Item>
             <Menu.Item onClick={this.props.saveState}>Save</Menu.Item>
+            <Menu.Item onClick={this.props.updatePrediction}>Predict</Menu.Item>
           </Menu>
         );
       }

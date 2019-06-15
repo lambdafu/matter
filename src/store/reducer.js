@@ -54,7 +54,17 @@ const noop = () => {};
 export function registerHandler(name, reducer = noop) {
   if (handlers.hasOwnProperty(name))
     throw new Error(`Handler with name "${name}" was already registered.`);
-  handlers[name] = (state, payload) => reducer(state, ...payload);
+    handlers[name] = (state, saved, payload) => reducer(saved, ...payload);
+
+  const actionCreator = (...payload) => ({ type: name, payload });
+  actionCreator.type = name;
+  return actionCreator;
+}
+
+export function registerHandler2(name, reducer = noop) {
+  if (handlers.hasOwnProperty(name))
+    throw new Error(`Handler with name "${name}" was already registered.`);
+  handlers[name] = (state, saved, payload) => reducer(state, saved, ...payload);
 
   const actionCreator = (...payload) => ({ type: name, payload });
   actionCreator.type = name;
@@ -67,7 +77,7 @@ export function rootReducer(state=initialState, action) {
       ...state,
       saved: {
         ...state.saved,
-        ...handlers[action.type](state.saved, action.payload),
+        ...handlers[action.type](state, state.saved, action.payload),
       },
     };
 

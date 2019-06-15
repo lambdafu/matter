@@ -10,9 +10,6 @@ import './index.css';
 
 import Main from './components/Main.js';
 
-import logit from './logic/predict.js';
-logit()
-
 ReactDOM.render(
   <Provider store={store}>
     <Main />

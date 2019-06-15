@@ -6,13 +6,8 @@ export default {
     desc: "A battery-operated source for visible light.",
     wp: "Flashlight",
     baseCost: 1,
-    effects: {
-      inputs: [],
-      outputs: [{
-        item: "photon",
-        count: 1,
-      }],
-    },
+    inputs: {},
+    outputs: { "photon": 1 },
   },
   laserpointer: {
     key: "laserpointer",
@@ -20,13 +15,8 @@ export default {
     desc: "Don't look into the beam!",
     wp: "Laser_pointer",
     baseCost: 100,
-    effects: {
-      inputs: [],
-      outputs: [{
-        item: "photon",
-        count: 100,
-      }],
-    },
+    inputs: {},
+    outputs: { "photon": 100 },
   },
   laser: {
     key: "laser",
@@ -34,13 +24,8 @@ export default {
     desc: "Light amplification by stimulated emission of radiation.",
     wp: "Laser",
     baseCost: 10000,
-    effects: {
-      inputs: [],
-      outputs: [{
-        item: "photon",
-        count: 10000,
-      }],
-    },
+    inputs: {},
+    outputs: { "photon": 10000 },
   },
 
   // SM: Electron
@@ -50,15 +35,7 @@ export default {
     desc: "Electrons being elevated by light.",
     wp: "Photodiode",
     baseCost: 10,
-    effects: {
-      inputs: [{
-        item: "photon",
-        count: 100,
-      }],
-      outputs: [{
-        item: "electron",
-        count: 1,
-      }],
-    },
+    inputs: { "photon": 100 },
+    outputs: { "electron": 1 },
   },
 }

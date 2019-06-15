@@ -17,7 +17,6 @@ export const setTopic = registerHandler('setTopic',
 );
 
 const mapStateToProps = (state) => {
-  const topic = state.saved.active.topic;
   return {
     matter: state.matter,
     topicKey: state.saved.active.topic,

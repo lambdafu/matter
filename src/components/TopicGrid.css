@@ -31,7 +31,21 @@
 .topicgrid .cell .count {
   position: absolute;
   bottom: 2px;
-  right: 2px;
+  right: 3px;
+  color: rgba(0,0,0,0.6);
+  font-size: 8px;
+  line-height: 8px;
+}
+.topicgrid .cell:hover .count,
+.topicgrid .cell.active .count,
+.topicgrid .cell.active:hover .count {
+  bottom: 0px;
+  right: 1px;
+}
+.topicgrid .cell .utilization {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
   color: rgba(0,0,0,0.6);
   font-size: 8px;
   line-height: 8px;
@@ -73,4 +87,25 @@ topicgrid.doubled .empty, .topicgrid.doubled .empty:hover {
   border-style: solid;
   border-color: #505050c0;
   line-height: 56px;
+}
+
+/* The little counter in the bottom right.  */
+.topicgrid.doubled .cell .count
+{
+  bottom: 6px;
+  right: 6px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.topicgrid.doubled .cell:hover .count
+{
+    bottom: 3px;
+    right: 3px;
+}
+
+.topicgrid.doubled .cell.active .count,
+.topicgrid.doubled .cell.active:hover .count {
+    bottom: 4px;
+    right: 4px;
 }
