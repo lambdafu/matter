@@ -1,48 +1,48 @@
-## Matter
+# Matter
 
-* "Playing to wait: A taxonomy of idle games"[1]
+An idle game about particle physics. Build generators to produce photons, electrons, and work your way through the Standard Model.
 
-[1]: https://pixl.nmsu.edu/files/2018/02/2018-chi-idle.pdf
+## Features
 
-## Available Scripts
+- **Linear Programming engine** - Production rates calculated via LP solver with breakpoint detection
+- **Narrative system** - Story events trigger based on game state conditions
+- **Upgrade system** - Permanent and temporary upgrades that modify generator efficiency
+- **Standard Model & Periodic Table** - Two topic grids to explore
 
-In the project directory, you can run:
+## Development
 
-### `npm start`
+```bash
+npm install
+npm run dev       # Start dev server at localhost:5173
+npm run build     # Production build to dist/
+npm run test:run  # Run tests once
+npm test          # Run tests in watch mode
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Architecture
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```
+src/
+  engine/         # Headless game engine (no React dependencies)
+    data/         # Static game data (items, generators, upgrades, narrative)
+    types.ts      # Type definitions
+    index.ts      # Game creation and tick simulation
+    solver.ts     # LP solver for production rates
+    narrative.ts  # Event condition evaluation and effects
+    reducers/     # State reducers for game actions
+  ui/             # React UI layer
+    components/   # React components
+    hooks.ts      # React hooks for game state
+  test/           # Vitest tests
+```
 
-### `npm test`
+## Tech Stack
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Vite + TypeScript + React 18
+- Semantic UI React
+- javascript-lp-solver
+- Vitest
 
-### `npm run build`
+## References
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Playing to Wait: A Taxonomy of Idle Games](https://pixl.nmsu.edu/files/2018/02/2018-chi-idle.pdf)
