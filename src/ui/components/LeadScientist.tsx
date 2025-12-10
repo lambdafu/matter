@@ -5,8 +5,10 @@ export default function LeadScientist() {
   const dispatch = useDispatch()
   const matter = useMatter()
   const leadScientist = useGameState(state => state.leadScientist)
+  const unlockedScientists = useGameState(state => state.unlockedScientists ?? ['curie'])
 
-  const options = matter.ui.scientists.map((key: string) => ({
+  // Only show unlocked scientists in the dropdown
+  const options = unlockedScientists.map((key: string) => ({
     key,
     text: matter.scientists[key].name,
     value: key,

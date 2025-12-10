@@ -15,6 +15,8 @@ const narrative: NarrativeEvent[] = [
     arc: 'physics_student',
     conditions: [], // Triggers immediately on new game
     effects: [
+      // Unlock Curie as the first principal investigator
+      { type: 'unlockScientist', key: 'curie' },
       { type: 'grantGenerator', key: 'flashlight', count: 1 },
       { type: 'unlockGenerator', key: 'flashlight' },
       { type: 'unlockItem', key: 'photon' },
@@ -101,6 +103,8 @@ const narrative: NarrativeEvent[] = [
     ],
     cooldown: 5,
     effects: [
+      // Einstein formally joins the team when electrons are discovered
+      { type: 'unlockScientist', key: 'einstein' },
       // Reveal upgrades once we have electrons
       { type: 'revealUpgrade', key: 'lipobat' },
     ],

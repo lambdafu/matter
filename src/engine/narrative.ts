@@ -235,6 +235,20 @@ export function applyEffect(
         },
       }
 
+    case 'unlockScientist':
+      // Add scientist to unlocked list and set pending for celebration modal
+      if (state.unlockedScientists.includes(key)) {
+        return state // Already unlocked
+      }
+      return {
+        ...state,
+        unlockedScientists: [...state.unlockedScientists, key],
+        narrative: {
+          ...state.narrative,
+          pendingScientistUnlock: key,
+        },
+      }
+
     default:
       return state
   }

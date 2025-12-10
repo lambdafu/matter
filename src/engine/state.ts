@@ -17,6 +17,7 @@ function createInitialNarrativeState(): NarrativeState {
     gameTime: 0,
     messageLog: [],
     currentModal: null,
+    pendingScientistUnlock: null,
   }
 }
 
@@ -43,6 +44,7 @@ export function createInitialState(matter: MatterData): SavedState {
   return {
     version: 1,
     leadScientist: 'curie',
+    unlockedScientists: [], // Scientists are unlocked via narrative events
     active: {
       topic: 'sm',
       item: { sm: 'photon', pt: 'Cu' },

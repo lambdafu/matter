@@ -4,6 +4,7 @@ import Menu from './components/Menu'
 import Notebook from './components/Notebook'
 import Laboratory from './components/Laboratory'
 import NarrativeModal from './components/NarrativeModal'
+import ScientistUnlockModal from './components/ScientistUnlockModal'
 
 function AppContent() {
   return (
@@ -21,6 +22,7 @@ function AppContent() {
           </Grid.Row>
         </Grid>
       </Container>
+      <ScientistUnlockModal />
       <NarrativeModal />
     </>
   )

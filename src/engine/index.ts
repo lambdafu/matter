@@ -56,6 +56,15 @@ export function createGame(matter: MatterData): Game {
           currentModal: null,
         },
       }
+    } else if (action.type === 'dismissScientistModal') {
+      // Clear pending scientist unlock modal
+      state = {
+        ...state,
+        narrative: {
+          ...state.narrative,
+          pendingScientistUnlock: null,
+        },
+      }
     } else if (action.type === 'resetState') {
       // Reset state and immediately process narrative events
       // This ensures the welcome event triggers without waiting for a tick

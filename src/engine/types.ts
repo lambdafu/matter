@@ -106,6 +106,7 @@ export type NarrativeEffectType =
   | 'unlockItem'       // Set item as available
   | 'unlockGenerator'  // Set generator as available (can be purchased)
   | 'unlockUpgrade'    // Set upgrade as available
+  | 'unlockScientist'  // Add scientist to available roster (shows celebration modal)
   | 'revealGenerator'  // Make generator visible but not yet available (teaser)
   | 'revealUpgrade'    // Make upgrade visible but not yet available (teaser)
   | 'removeItem'       // Remove items (catastrophe)
@@ -267,6 +268,8 @@ export interface NarrativeState {
   messageLog: NarrativeLogEntry[]
   /** Currently displayed modal event (null if none) */
   currentModal: string | null
+  /** Scientist key for celebration modal (null if none) */
+  pendingScientistUnlock: string | null
 }
 
 /** LP solver result for a single item */
@@ -316,6 +319,8 @@ export interface Prediction {
 export interface SavedState {
   version: number
   leadScientist: string
+  /** List of scientist keys that have been unlocked */
+  unlockedScientists: string[]
   active: ActiveState
   settings: Settings
   items: Record<string, ItemState>
@@ -407,6 +412,10 @@ export interface DismissNarrativeModalAction {
   type: 'dismissNarrativeModal'
 }
 
+export interface DismissScientistModalAction {
+  type: 'dismissScientistModal'
+}
+
 export type GameAction =
   | SetStateAction
   | ResetStateAction
@@ -423,6 +432,7 @@ export type GameAction =
   | PurchaseUpgradeAction
   | TriggerNarrativeEventAction
   | DismissNarrativeModalAction
+  | DismissScientistModalAction
 
 // =============================================================================
 // Event Types
