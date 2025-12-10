@@ -105,8 +105,6 @@ const narrative: NarrativeEvent[] = [
     effects: [
       // Einstein formally joins the team when electrons are discovered
       { type: 'unlockScientist', key: 'einstein' },
-      // Reveal upgrades once we have electrons
-      { type: 'revealUpgrade', key: 'lipobat' },
     ],
     speaker: 'einstein',
     message: "Your first electron! The photoelectric effect in action. Light knocks electrons loose from atoms - this is what earned me the Nobel Prize.",
@@ -137,12 +135,10 @@ const narrative: NarrativeEvent[] = [
       { type: 'item', key: 'electron', op: '>=', value: 100 }
     ],
     cooldown: 15,
-    effects: [
-      { type: 'unlockUpgrade', key: 'lipobat' },
-    ],
+    effects: [],
     speaker: 'curie',
-    message: "A hundred electrons! Your lab is becoming quite productive. I've unlocked an upgrade for your flashlight - a lithium polymer battery.",
-    teaser: "Gather 100 electrons to unlock an upgrade",
+    message: "A hundred electrons! Your lab is becoming quite productive. The photoelectric effect is working beautifully.",
+    teaser: "Gather 100 electrons",
   },
 
   // === FIRST UPGRADE ===

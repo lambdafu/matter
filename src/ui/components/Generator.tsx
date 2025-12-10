@@ -98,10 +98,15 @@ export default function Generator({ generatorKey }: GeneratorProps) {
     }
   }
 
-  // Find upgrades for this generator
-  const upgrades = Object.keys(matter.upgrades).filter(upgradeKey =>
-    matter.upgrades[upgradeKey].effects.some((effect: { generator: string }) => effect.generator === generatorKey)
-  )
+  // Find visible upgrades for this generator
+  const upgrades = Object.keys(matter.upgrades).filter(upgradeKey => {
+    const upgradeState = upgradeStates[upgradeKey]
+    const isVisible = upgradeState?.visible ?? false
+    const affectsThisGenerator = matter.upgrades[upgradeKey].effects.some(
+      (effect: { generator: string }) => effect.generator === generatorKey
+    )
+    return isVisible && affectsThisGenerator
+  })
 
   // Check if player can afford an upgrade
   const canAffordUpgrade = (upgradeKey: string): boolean => {

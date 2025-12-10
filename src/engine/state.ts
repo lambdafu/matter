@@ -16,8 +16,7 @@ function createInitialNarrativeState(): NarrativeState {
     lastEventTime: 0,
     gameTime: 0,
     messageLog: [],
-    currentModal: null,
-    pendingScientistUnlock: null,
+    modalQueue: [],
   }
 }
 

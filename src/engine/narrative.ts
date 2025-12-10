@@ -236,7 +236,7 @@ export function applyEffect(
       }
 
     case 'unlockScientist':
-      // Add scientist to unlocked list and set pending for celebration modal
+      // Add scientist to unlocked list and queue celebration modal
       if (state.unlockedScientists.includes(key)) {
         return state // Already unlocked
       }
@@ -245,7 +245,7 @@ export function applyEffect(
         unlockedScientists: [...state.unlockedScientists, key],
         narrative: {
           ...state.narrative,
-          pendingScientistUnlock: key,
+          modalQueue: [...state.narrative.modalQueue, { type: 'scientistUnlock', key }],
         },
       }
 
@@ -276,6 +276,10 @@ export function applyNarrativeEvent(
   }
 
   // Update narrative state
+  const newModalQueue = event.modal
+    ? [...newState.narrative.modalQueue, { type: 'narrative' as const, key: event.key }]
+    : newState.narrative.modalQueue
+
   newState = {
     ...newState,
     narrative: {
@@ -283,7 +287,7 @@ export function applyNarrativeEvent(
       triggered: [...newState.narrative.triggered, event.key],
       lastEventTime: newState.narrative.gameTime,
       messageLog: [...newState.narrative.messageLog, logEntry].slice(-50), // Keep last 50 messages
-      currentModal: event.modal ? event.key : newState.narrative.currentModal,
+      modalQueue: newModalQueue,
     },
   }
 

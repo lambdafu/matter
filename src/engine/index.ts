@@ -47,22 +47,13 @@ export function createGame(matter: MatterData): Game {
       const result = simulateTick(matter, state, action.payload.dt)
       state = result.state
       narrativeEvents = result.narrativeEvents
-    } else if (action.type === 'dismissNarrativeModal') {
-      // Clear current modal
+    } else if (action.type === 'dismissModal') {
+      // Remove the first modal from the queue
       state = {
         ...state,
         narrative: {
           ...state.narrative,
-          currentModal: null,
-        },
-      }
-    } else if (action.type === 'dismissScientistModal') {
-      // Clear pending scientist unlock modal
-      state = {
-        ...state,
-        narrative: {
-          ...state.narrative,
-          pendingScientistUnlock: null,
+          modalQueue: state.narrative.modalQueue.slice(1),
         },
       }
     } else if (action.type === 'resetState') {
@@ -245,6 +236,31 @@ function simulateTick(
     ...newState,
     items: newItems,
     upgrades: upgradeChanged ? newUpgrades : newState.upgrades,
+  }
+
+  // Auto-reveal upgrades based on generator counts
+  const newUpgradesForReveal = { ...newState.upgrades }
+  let upgradeRevealed = false
+
+  for (const [upgradeKey, upgrade] of Object.entries(matter.upgrades)) {
+    const upgradeState = newUpgradesForReveal[upgradeKey]
+    // Skip if already visible or no revealAt condition
+    if (upgradeState?.visible) continue
+    if (!upgrade.revealAt) continue
+
+    const generatorCount = newState.generators[upgrade.revealAt.generator]?.count ?? 0
+    if (generatorCount >= upgrade.revealAt.count) {
+      newUpgradesForReveal[upgradeKey] = {
+        ...upgradeState,
+        visible: true,
+        available: true, // Also make it purchasable
+      }
+      upgradeRevealed = true
+    }
+  }
+
+  if (upgradeRevealed) {
+    newState = { ...newState, upgrades: newUpgradesForReveal }
   }
 
   // If we hit a breakpoint, we need to re-solve the LP problem

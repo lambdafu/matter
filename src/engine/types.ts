@@ -78,6 +78,8 @@ export interface Upgrade {
   /** Optional expiration time in seconds (null = permanent) */
   expiration?: number
   effects: UpgradeEffect[]
+  /** Auto-reveal when player owns N of a generator */
+  revealAt?: { generator: string; count: number }
 }
 
 // =============================================================================
@@ -257,6 +259,12 @@ export interface NarrativeLogEntry {
 }
 
 /** Narrative/story progress state */
+/** Entry in the modal queue */
+export interface ModalQueueEntry {
+  type: 'narrative' | 'scientistUnlock'
+  key: string
+}
+
 export interface NarrativeState {
   /** Event keys that have already triggered */
   triggered: string[]
@@ -266,10 +274,8 @@ export interface NarrativeState {
   gameTime: number
   /** Recent messages for UI display */
   messageLog: NarrativeLogEntry[]
-  /** Currently displayed modal event (null if none) */
-  currentModal: string | null
-  /** Scientist key for celebration modal (null if none) */
-  pendingScientistUnlock: string | null
+  /** Queue of modals to display (first item is currently shown) */
+  modalQueue: ModalQueueEntry[]
 }
 
 /** LP solver result for a single item */
@@ -408,12 +414,8 @@ export interface TriggerNarrativeEventAction {
   payload: { eventKey: string }
 }
 
-export interface DismissNarrativeModalAction {
-  type: 'dismissNarrativeModal'
-}
-
-export interface DismissScientistModalAction {
-  type: 'dismissScientistModal'
+export interface DismissModalAction {
+  type: 'dismissModal'
 }
 
 export type GameAction =
@@ -431,8 +433,7 @@ export type GameAction =
   | UpdateSettingsAction
   | PurchaseUpgradeAction
   | TriggerNarrativeEventAction
-  | DismissNarrativeModalAction
-  | DismissScientistModalAction
+  | DismissModalAction
 
 // =============================================================================
 // Event Types

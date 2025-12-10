@@ -13,14 +13,16 @@ const scientistImages: Record<string, string> = {
 export default function NarrativeModal() {
   const matter = useMatter()
   const dispatch = useDispatch()
-  const currentModal = useGameState(state => state.narrative.currentModal)
+  const modalQueue = useGameState(state => state.narrative.modalQueue)
 
-  // Find the event data for the current modal
-  const currentEvent = currentModal
-    ? matter.narrative.find(e => e.key === currentModal)
+  // Get the first narrative modal from the queue
+  const currentEntry = modalQueue.find(m => m.type === 'narrative')
+  const currentEvent = currentEntry
+    ? matter.narrative.find(e => e.key === currentEntry.key)
     : null
 
-  if (!currentModal || !currentEvent) {
+  // Only show if the first item in queue is a narrative modal
+  if (!currentEntry || modalQueue[0]?.type !== 'narrative' || !currentEvent) {
     return null
   }
 
@@ -32,7 +34,7 @@ export default function NarrativeModal() {
     : undefined
 
   const handleDismiss = () => {
-    dispatch({ type: 'dismissNarrativeModal' })
+    dispatch({ type: 'dismissModal' })
   }
 
   return (

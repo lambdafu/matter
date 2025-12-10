@@ -8,6 +8,7 @@ const upgrades: Record<string, Upgrade> = {
     wp: 'Lithium_battery',
     cost: { photon: 1000 },
     effects: [{ generator: 'flashlight', type: 'efficiency', value: 2.0 }],
+    revealAt: { generator: 'flashlight', count: 2 },
   },
   solarcooling: {
     key: 'solarcooling',
@@ -16,6 +17,7 @@ const upgrades: Record<string, Upgrade> = {
     wp: 'Passive_cooling',
     cost: { photon: 5000, electron: 100 },
     effects: [{ generator: 'solarpanel', type: 'efficiency', value: 1.5 }],
+    revealAt: { generator: 'solarpanel', count: 2 },
   },
   turboboost: {
     key: 'turboboost',
@@ -25,6 +27,7 @@ const upgrades: Record<string, Upgrade> = {
     cost: { photon: 500 },
     expiration: 60, // Lasts 60 seconds
     effects: [{ generator: 'flashlight', type: 'efficiency', value: 3.0 }],
+    revealAt: { generator: 'flashlight', count: 3 },
   },
 }
 

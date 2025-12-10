@@ -15,17 +15,19 @@ const scientistImages: Record<string, string> = {
 export default function ScientistUnlockModal() {
   const dispatch = useDispatch()
   const matter = useMatter()
-  const pendingScientist = useGameState(state => state.narrative.pendingScientistUnlock)
+  const modalQueue = useGameState(state => state.narrative.modalQueue)
 
-  if (!pendingScientist) return null
+  // Only show if the first item in queue is a scientist unlock modal
+  const currentEntry = modalQueue[0]
+  if (!currentEntry || currentEntry.type !== 'scientistUnlock') return null
 
-  const scientist = matter.scientists[pendingScientist]
+  const scientist = matter.scientists[currentEntry.key]
   if (!scientist) return null
 
   const imageSrc = scientistImages[scientist.image]
 
   const handleDismiss = () => {
-    dispatch({ type: 'dismissScientistModal' })
+    dispatch({ type: 'dismissModal' })
   }
 
   return (
