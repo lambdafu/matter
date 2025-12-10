@@ -15,15 +15,35 @@ function GridCellItem({ topic, itemKey }: GridCellItemProps) {
   const matter = useMatter()
   const activeItem = useGameState(state => state.active.item[state.active.topic])
   const itemState = useGameState(state => state.items[itemKey])
+  const prediction = useGameState(state => state.prediction?.result)
   const numberFormat = useGameState(state => state.settings.numberFormat)
 
   const item = matter.items[itemKey]
   if (!item) return null
 
   const category = matter.categories[item.category]
+  const isAvailable = itemState?.available ?? false
+  const itemPrediction = prediction?.items[itemKey]
+  const delta = itemPrediction?.delta ?? 0
 
   const handleClick = () => {
+    if (!isAvailable) return // Don't allow selecting locked items
     dispatch({ type: 'setTopicItem', payload: { topic: topic.key, item: itemKey } })
+  }
+
+  // Locked item - show as mysterious
+  if (!isAvailable) {
+    return (
+      <Popup
+        trigger={
+          <div className="cell locked">
+            <p>?</p>
+          </div>
+        }
+        content="Not yet discovered"
+        position="bottom left"
+      />
+    )
   }
 
   return (
@@ -37,6 +57,11 @@ function GridCellItem({ topic, itemKey }: GridCellItemProps) {
           <p>
             {item.short}
             <span className="count">{formatCompact(itemState?.count ?? 0, { style: numberFormat })}</span>
+            {delta !== 0 && (
+              <span className={classNames('delta', { up: delta > 0, down: delta < 0 })}>
+                {delta > 0 ? '\u25B2' : '\u25BC'}
+              </span>
+            )}
           </p>
         </div>
       }

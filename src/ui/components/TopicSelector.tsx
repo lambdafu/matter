@@ -11,9 +11,8 @@ export default function TopicSelector() {
   }
 
   return (
-    <>
-      <Divider horizontal>Topic</Divider>
-      <Button.Group>
+    <Divider horizontal>
+      <Button.Group size="mini">
         {matter.ui.topics.map((topicKey: string) => {
           const topic = matter.topics[topicKey]
           return (
@@ -32,6 +31,6 @@ export default function TopicSelector() {
           )
         })}
       </Button.Group>
-    </>
+    </Divider>
   )
 }
