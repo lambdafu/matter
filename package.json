@@ -1,35 +1,32 @@
 {
   "name": "matter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "dependencies": {
-    "@uandi/javascript-lp-solver": "^0.4.5",
-    "classnames": "^2.2.6",
-    "deepmerge": "^2.2.1",
-    "js-function-reflector": "^2.0.3",
-    "json-loader": "^0.5.7",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-redux": "^5.1.1",
-    "react-scripts": "2.1.1",
-    "redux": "^4.0.1",
-    "redux-saga": "^0.16.2",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.83.0"
-  },
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "classnames": "^2.5.1",
+    "deepmerge": "^4.3.1",
+    "javascript-lp-solver": "^0.4.24",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.5"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
+  }
 }

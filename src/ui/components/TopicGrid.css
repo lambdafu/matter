@@ -1,0 +1,114 @@
+.topicgrid .cell {
+  position: relative;
+  display: inline-block;
+  border: none;
+  border-color: #505050a0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  vertical-align: text-bottom;
+  padding: 2px;
+  margin: 0.5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.topicgrid .cell:hover {
+  border-width: 2px;
+  padding: 0px;
+  border-style: dashed;
+  line-height: 26px;
+}
+
+.topicgrid .cell.active,
+.topicgrid .cell.active:hover
+ {
+  border-width: 2px;
+  padding: 0px;
+  border-style: solid;
+  border-color: #505050c0;
+  line-height: 26px;
+}
+.topicgrid .cell .count {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  color: rgba(0,0,0,0.6);
+  font-size: 8px;
+  line-height: 8px;
+}
+.topicgrid .cell:hover .count,
+.topicgrid .cell.active .count,
+.topicgrid .cell.active:hover .count {
+  bottom: 0px;
+  right: 1px;
+}
+.topicgrid .cell .utilization {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  color: rgba(0,0,0,0.6);
+  font-size: 8px;
+  line-height: 8px;
+}
+
+.topicgrid .empty,
+.topicgrid .empty:hover {
+  border: none;
+  line-height: 35px;
+  cursor: default;
+}
+
+.topicgrid .row {
+  line-height: 0;
+}
+
+.topicgrid.doubled .cell {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  margin: 1px;
+}
+
+.topicgrid.doubled .cell:hover,
+.topicgrid.doubled .cell.active {
+  border-width: 3px;
+  border-style: dashed;
+  line-height: 54px;
+}
+
+.topicgrid.doubled .empty,
+.topicgrid.doubled .empty:hover {
+  border: none;
+  line-height: 60px;
+}
+
+.topicgrid.doubled .cell.active,
+.topicgrid.doubled .cell.active:hover
+ {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #505050c0;
+  line-height: 56px;
+}
+
+/* The little counter in the bottom right.  */
+.topicgrid.doubled .cell .count
+{
+  bottom: 6px;
+  right: 6px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.topicgrid.doubled .cell:hover .count
+{
+    bottom: 3px;
+    right: 3px;
+}
+
+.topicgrid.doubled .cell.active .count,
+.topicgrid.doubled .cell.active:hover .count {
+    bottom: 4px;
+    right: 4px;
+}
