@@ -80,6 +80,69 @@ export interface Upgrade {
   effects: UpgradeEffect[]
 }
 
+// =============================================================================
+// Narrative Types (Story/Event System)
+// =============================================================================
+
+/** Comparison operators for narrative conditions */
+export type NarrativeOperator = '>=' | '>' | '<' | '<=' | '==' | 'has'
+
+/** Condition that must be met to trigger a narrative event */
+export interface NarrativeCondition {
+  /** Type of condition to check */
+  type: 'item' | 'generator' | 'upgrade' | 'event' | 'gameTime'
+  /** Key of the item/generator/upgrade/event to check (not needed for gameTime) */
+  key?: string
+  /** Comparison operator */
+  op: NarrativeOperator
+  /** Value to compare against */
+  value: number | boolean
+}
+
+/** Effect types that narrative events can trigger */
+export type NarrativeEffectType =
+  | 'grantItem'        // Add items to inventory
+  | 'grantGenerator'   // Add generators (free, bypasses cost)
+  | 'unlockItem'       // Set item as available
+  | 'unlockGenerator'  // Set generator as available (can be purchased)
+  | 'unlockUpgrade'    // Set upgrade as available
+  | 'revealGenerator'  // Make generator visible but not yet available (teaser)
+  | 'revealUpgrade'    // Make upgrade visible but not yet available (teaser)
+  | 'removeItem'       // Remove items (catastrophe)
+  | 'removeGenerator'  // Remove generators (catastrophe)
+
+/** Effect applied when a narrative event triggers */
+export interface NarrativeEffect {
+  type: NarrativeEffectType
+  key: string
+  /** Count for grant/remove effects (default 1) */
+  count?: number
+}
+
+/** A narrative event that can be triggered during gameplay */
+export interface NarrativeEvent {
+  /** Unique identifier */
+  key: string
+  /** Story arc this event belongs to */
+  arc: string
+  /** Conditions that must ALL be true to trigger (empty = trigger immediately) */
+  conditions: NarrativeCondition[]
+  /** Minimum seconds since last narrative event (prevents spam) */
+  cooldown?: number
+  /** Minimum total game time before this can trigger */
+  minGameTime?: number
+  /** Effects to apply when triggered */
+  effects: NarrativeEffect[]
+  /** Scientist who speaks this message (for portrait) */
+  speaker?: string
+  /** The narrative message to display */
+  message: string
+  /** Show in modal (major plot point) vs message log (minor) */
+  modal?: boolean
+  /** Teaser text shown before this event triggers (for upcoming goals) */
+  teaser?: string
+}
+
 /** Achievement unlocked by scientists */
 export interface Achievement {
   name: string
@@ -135,6 +198,7 @@ export interface MatterData {
   achievements: Record<string, Achievement>
   generators: Record<string, Generator>
   upgrades: Record<string, Upgrade>
+  narrative: NarrativeEvent[]
 }
 
 // =============================================================================
@@ -149,12 +213,18 @@ export interface ItemState {
 
 /** State of a single generator */
 export interface GeneratorState {
+  /** Visible in UI (teaser/locked state) */
+  visible: boolean
+  /** Available for purchase/use */
   available: boolean
   count: number
 }
 
 /** State of a single upgrade */
 export interface UpgradeState {
+  /** Visible in UI (teaser/locked state) */
+  visible: boolean
+  /** Available for purchase */
   available: boolean
   acquired: boolean
   /**
@@ -175,6 +245,28 @@ export interface ActiveState {
 /** User settings */
 export interface Settings {
   numberFormat: 'scientific' | 'compact' | 'full'
+}
+
+/** Entry in the narrative message log */
+export interface NarrativeLogEntry {
+  eventKey: string
+  timestamp: number
+  message: string
+  speaker?: string
+}
+
+/** Narrative/story progress state */
+export interface NarrativeState {
+  /** Event keys that have already triggered */
+  triggered: string[]
+  /** Game time when last event triggered (for cooldown) */
+  lastEventTime: number
+  /** Total seconds played */
+  gameTime: number
+  /** Recent messages for UI display */
+  messageLog: NarrativeLogEntry[]
+  /** Currently displayed modal event (null if none) */
+  currentModal: string | null
 }
 
 /** LP solver result for a single item */
@@ -229,6 +321,7 @@ export interface SavedState {
   items: Record<string, ItemState>
   generators: Record<string, GeneratorState>
   upgrades: Record<string, UpgradeState>
+  narrative: NarrativeState
   prediction?: Prediction
 }
 
@@ -305,6 +398,15 @@ export interface PurchaseUpgradeAction {
   payload: { upgrade: string }
 }
 
+export interface TriggerNarrativeEventAction {
+  type: 'triggerNarrativeEvent'
+  payload: { eventKey: string }
+}
+
+export interface DismissNarrativeModalAction {
+  type: 'dismissNarrativeModal'
+}
+
 export type GameAction =
   | SetStateAction
   | ResetStateAction
@@ -319,6 +421,8 @@ export type GameAction =
   | UpdateItemCountAction
   | UpdateSettingsAction
   | PurchaseUpgradeAction
+  | TriggerNarrativeEventAction
+  | DismissNarrativeModalAction
 
 // =============================================================================
 // Event Types
@@ -331,6 +435,7 @@ export type GameEventType =
   | 'upgradeUnlocked'
   | 'upgradeAcquired'
   | 'achievementUnlocked'
+  | 'narrativeEvent'
 
 export interface StateChangeEvent {
   type: 'stateChange'
@@ -364,6 +469,11 @@ export interface AchievementUnlockedEvent {
   achievement: string
 }
 
+export interface NarrativeEventTriggered {
+  type: 'narrativeEvent'
+  event: NarrativeEvent
+}
+
 export type GameEvent =
   | StateChangeEvent
   | ItemUnlockedEvent
@@ -371,6 +481,7 @@ export type GameEvent =
   | UpgradeUnlockedEvent
   | UpgradeAcquiredEvent
   | AchievementUnlockedEvent
+  | NarrativeEventTriggered
 
 // =============================================================================
 // Engine Types

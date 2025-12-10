@@ -6,6 +6,7 @@ import achievements from './achievements'
 import scientists from './scientists'
 import topics from './topics'
 import categories from './categories'
+import narrative from './narrative'
 
 const ui: UIConfig = {
   topics: ['sm', 'pt'],
@@ -22,6 +23,7 @@ const matter: MatterData = {
   achievements,
   generators,
   upgrades,
+  narrative,
 }
 
 export default matter
@@ -34,5 +36,6 @@ export {
   scientists,
   topics,
   categories,
+  narrative,
   ui,
 }

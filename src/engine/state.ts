@@ -4,7 +4,21 @@ import type {
   ItemState,
   GeneratorState,
   UpgradeState,
+  NarrativeState,
 } from './types'
+
+/**
+ * Create the initial narrative state.
+ */
+function createInitialNarrativeState(): NarrativeState {
+  return {
+    triggered: [],
+    lastEventTime: 0,
+    gameTime: 0,
+    messageLog: [],
+    currentModal: null,
+  }
+}
 
 /**
  * Create the initial saved state from game data.
@@ -18,12 +32,12 @@ export function createInitialState(matter: MatterData): SavedState {
 
   const generators: Record<string, GeneratorState> = {}
   for (const key of Object.keys(matter.generators)) {
-    generators[key] = { available: false, count: 0 }
+    generators[key] = { visible: false, available: false, count: 0 }
   }
 
   const upgrades: Record<string, UpgradeState> = {}
   for (const key of Object.keys(matter.upgrades)) {
-    upgrades[key] = { available: false, acquired: false }
+    upgrades[key] = { visible: false, available: false, acquired: false }
   }
 
   return {
@@ -39,6 +53,7 @@ export function createInitialState(matter: MatterData): SavedState {
     items,
     generators,
     upgrades,
+    narrative: createInitialNarrativeState(),
   }
 }
 
@@ -105,6 +120,10 @@ export function mergeState(
     upgrades: {
       ...initial.upgrades,
       ...saved.upgrades,
+    },
+    narrative: {
+      ...initial.narrative,
+      ...saved.narrative,
     },
   }
 }

@@ -7,12 +7,14 @@ import type {
   EventListener,
   GameEventType,
   Prediction,
+  NarrativeEvent,
 } from './types'
 import { createInitialState, mergeState } from './state'
 import { rootReducer } from './reducers'
 import { EventEmitter } from './events'
 import { serialize, deserialize } from './persistence'
 import { solvePrediction } from './solver'
+import { processNarrativeEvents } from './narrative'
 
 export type { Game, MatterData, SavedState, GameAction }
 
@@ -34,14 +36,26 @@ export function createGame(matter: MatterData): Game {
 
   function dispatch(action: GameAction): void {
     const prevState = state
+    let narrativeEvents: NarrativeEvent[] = []
 
     // Handle special actions
     if (action.type === 'updatePrediction') {
       const prediction = solvePrediction(matter, state)
       state = { ...state, prediction }
     } else if (action.type === 'tick') {
-      // Simulation tick - calculate production
-      state = simulateTick(matter, state, action.payload.dt)
+      // Simulation tick - calculate production and narrative
+      const result = simulateTick(matter, state, action.payload.dt)
+      state = result.state
+      narrativeEvents = result.narrativeEvents
+    } else if (action.type === 'dismissNarrativeModal') {
+      // Clear current modal
+      state = {
+        ...state,
+        narrative: {
+          ...state.narrative,
+          currentModal: null,
+        },
+      }
     } else {
       // Normal reducer
       state = rootReducer(matter, state, action)
@@ -59,6 +73,14 @@ export function createGame(matter: MatterData): Game {
       prevState,
       nextState: state,
     })
+
+    // Emit narrative events
+    for (const event of narrativeEvents) {
+      eventEmitter.emit({
+        type: 'narrativeEvent',
+        event,
+      })
+    }
   }
 
   function subscribe(listener: StateListener): () => void {
@@ -108,26 +130,41 @@ export function createGame(matter: MatterData): Game {
  * Simulate one tick of game time.
  *
  * This function handles:
- * 1. Item count updates based on prediction deltas
- * 2. Upgrade durability decay (pseudo-resource consumption)
- * 3. Breakpoint detection for re-solving when state changes qualitatively
+ * 1. Game time tracking for narrative system
+ * 2. Item count updates based on prediction deltas
+ * 3. Upgrade durability decay (pseudo-resource consumption)
+ * 4. Breakpoint detection for re-solving when state changes qualitatively
+ * 5. Narrative event processing
  *
  * The tick may be split if a breakpoint occurs during the tick interval.
  * When a breakpoint is reached, the state changes and a re-solve is needed.
+ *
+ * Returns both the new state and any triggered narrative events.
  */
 function simulateTick(
   matter: MatterData,
   state: SavedState,
   dt: number
-): SavedState {
-  // If no prediction, we can't simulate
+): { state: SavedState; narrativeEvents: NarrativeEvent[] } {
+  let tickSeconds = dt / 1000
+  let needsResolve = false
+
+  // Update game time for narrative tracking
+  let newState: SavedState = {
+    ...state,
+    narrative: {
+      ...state.narrative,
+      gameTime: state.narrative.gameTime + tickSeconds,
+    },
+  }
+
+  // If no prediction, just update game time and check narrative
   if (!state.prediction) {
-    return state
+    const { state: stateAfterNarrative, triggered } = processNarrativeEvents(matter, newState)
+    return { state: stateAfterNarrative, narrativeEvents: triggered }
   }
 
   const prediction = state.prediction as Prediction
-  let tickSeconds = dt / 1000
-  let needsResolve = false
 
   // Check if we'll hit a breakpoint during this tick
   if (prediction.nextBreakpoint && prediction.nextBreakpoint.timeUntil <= tickSeconds) {
@@ -137,25 +174,25 @@ function simulateTick(
   }
 
   // Calculate item deltas based on prediction
-  const newItems = { ...state.items }
+  const newItems = { ...newState.items }
 
   for (const [itemKey, itemPrediction] of Object.entries(prediction.result.items)) {
-    const currentCount = state.items[itemKey]?.count ?? 0
+    const currentCount = newState.items[itemKey]?.count ?? 0
     const delta = itemPrediction.delta * tickSeconds
     const newCount = Math.max(0, currentCount + delta)
 
     newItems[itemKey] = {
-      ...state.items[itemKey],
+      ...newState.items[itemKey],
       count: newCount,
     }
   }
 
   // Decay upgrade durabilities (pseudo-resource consumption by hidden decay generators)
   // Durability decreases at 1 unit per second for active temporary upgrades
-  const newUpgrades = { ...state.upgrades }
+  const newUpgrades = { ...newState.upgrades }
   let upgradeChanged = false
 
-  for (const [upgradeKey, upgradeState] of Object.entries(state.upgrades)) {
+  for (const [upgradeKey, upgradeState] of Object.entries(newState.upgrades)) {
     if (!upgradeState.acquired) continue
     if (upgradeState.durability === undefined) continue // Permanent upgrade
 
@@ -175,10 +212,10 @@ function simulateTick(
     }
   }
 
-  let newState: SavedState = {
-    ...state,
+  newState = {
+    ...newState,
     items: newItems,
-    upgrades: upgradeChanged ? newUpgrades : state.upgrades,
+    upgrades: upgradeChanged ? newUpgrades : newState.upgrades,
   }
 
   // If we hit a breakpoint, we need to re-solve the LP problem
@@ -188,7 +225,10 @@ function simulateTick(
     newState = { ...newState, prediction: newPrediction }
   }
 
-  return newState
+  // Process narrative events
+  const { state: stateAfterNarrative, triggered } = processNarrativeEvents(matter, newState)
+
+  return { state: stateAfterNarrative, narrativeEvents: triggered }
 }
 
 // Re-export types and utilities
@@ -197,5 +237,6 @@ export { serialize, deserialize, saveToLocalStorage, loadFromLocalStorage, clear
 export { solvePrediction } from './solver'
 export { EventEmitter } from './events'
 export { formatCompact, formatRate } from './format'
+export { evaluateCondition, checkNarrativeEvents, applyNarrativeEvent, processNarrativeEvents } from './narrative'
 export type { FormatStyle } from './format'
 export * from './types'

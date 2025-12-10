@@ -3,6 +3,7 @@ import { GameProvider } from './hooks'
 import Menu from './components/Menu'
 import Notebook from './components/Notebook'
 import Laboratory from './components/Laboratory'
+import NarrativeModal from './components/NarrativeModal'
 
 function AppContent() {
   return (
@@ -20,6 +21,7 @@ function AppContent() {
           </Grid.Row>
         </Grid>
       </Container>
+      <NarrativeModal />
     </>
   )
 }
