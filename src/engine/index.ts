@@ -56,6 +56,13 @@ export function createGame(matter: MatterData): Game {
           currentModal: null,
         },
       }
+    } else if (action.type === 'resetState') {
+      // Reset state and immediately process narrative events
+      // This ensures the welcome event triggers without waiting for a tick
+      state = rootReducer(matter, state, action)
+      const { state: stateAfterNarrative, triggered } = processNarrativeEvents(matter, state)
+      state = stateAfterNarrative
+      narrativeEvents = triggered
     } else {
       // Normal reducer
       state = rootReducer(matter, state, action)
@@ -103,9 +110,22 @@ export function createGame(matter: MatterData): Game {
     if (loaded) {
       const initial = createInitialState(matter)
       state = mergeState(initial, loaded)
+
+      // Process any pending narrative events (for fresh saves or after reset)
+      const { state: stateAfterNarrative, triggered } = processNarrativeEvents(matter, state)
+      state = stateAfterNarrative
+
       // Notify listeners of load
       for (const listener of stateListeners) {
         listener(state, { type: 'setState', payload: state }, state)
+      }
+
+      // Emit narrative events
+      for (const event of triggered) {
+        eventEmitter.emit({
+          type: 'narrativeEvent',
+          event,
+        })
       }
     }
   }
@@ -233,7 +253,7 @@ function simulateTick(
 
 // Re-export types and utilities
 export { createInitialState, mergeState } from './state'
-export { serialize, deserialize, saveToLocalStorage, loadFromLocalStorage, clearLocalStorage } from './persistence'
+export { serialize, deserialize, saveToLocalStorage, loadFromLocalStorage, clearLocalStorage, saveToManualSlot, loadFromManualSlot, hasManualSave } from './persistence'
 export { solvePrediction } from './solver'
 export { EventEmitter } from './events'
 export { formatCompact, formatRate } from './format'

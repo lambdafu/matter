@@ -67,7 +67,10 @@ describe('Game Engine', () => {
     it('resets state', () => {
       game.dispatch({ type: 'updateGeneratorCount', payload: { generator: 'flashlight', count: 5 } })
       game.dispatch({ type: 'resetState' })
-      expect(game.getState().generators.flashlight.count).toBe(0)
+      // After reset, the welcome narrative event triggers and grants 1 flashlight
+      expect(game.getState().generators.flashlight.count).toBe(1)
+      // Verify narrative was triggered
+      expect(game.getState().narrative.triggered).toContain('welcome')
     })
   })
 
@@ -101,6 +104,9 @@ describe('Game Engine', () => {
 
   describe('save/load', () => {
     it('serializes and deserializes state', () => {
+      // First trigger welcome event by reset so welcome is already triggered
+      game.dispatch({ type: 'resetState' })
+      // Now set our test values
       game.dispatch({ type: 'updateGeneratorCount', payload: { generator: 'flashlight', count: 10 } })
       game.dispatch({ type: 'updateItemCount', payload: { item: 'photon', count: 500 } })
       game.dispatch({ type: 'setLeadScientist', payload: { scientist: 'einstein' } })
@@ -111,9 +117,11 @@ describe('Game Engine', () => {
       const newGame = createGame(matter)
       newGame.load(saved)
 
+      // Values should be preserved (welcome already triggered in saved state, so no +1 flashlight)
       expect(newGame.getState().generators.flashlight.count).toBe(10)
       expect(newGame.getState().items.photon.count).toBe(500)
       expect(newGame.getState().leadScientist).toBe('einstein')
+      expect(newGame.getState().narrative.triggered).toContain('welcome')
     })
   })
 })
